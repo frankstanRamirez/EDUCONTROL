@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EDUCONTROL.Models.Asignatura>
+@{
+    ViewData["Title"] = "Asignaturas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">
+        <i class="bi bi-journal-bookmark text-primary"></i> Asignaturas
+    </h4>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Nueva asignatura
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <table class="table table-hover mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Grado</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Nombre</td>
+                    <td>@(a.Grado ?? "Todos los grados")</td>
+                    <td>
+                        <span class="badge @(a.Activa ? "bg-success" : "bg-secondary")">
+                            @(a.Activa ? "Activa" : "Inactiva")
+                        </span>
+                    </td>
+                    <td>
+                        <form asp-action="ToggleActiva" asp-route-id="@a.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="btn btn-sm @(a.Activa ? "btn-outline-danger" : "btn-outline-success")">
+                                @(a.Activa ? "Desactivar" : "Activar")
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="4" class="text-center text-muted py-3">
+                        No hay asignaturas registradas.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

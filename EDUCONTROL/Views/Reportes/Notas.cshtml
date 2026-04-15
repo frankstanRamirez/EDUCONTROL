@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Reporte de Notas";
+    var detalle = ViewBag.Detalle as IEnumerable<dynamic> ?? new
+   List<dynamic>();
+    var asignaturas = ViewBag.Asignaturas as List<EDUCONTROL.Models.Asignatura>;
+}
+<style>
+    @@media print {
+        .no-print {
+            display: none !important;
+        }
+
+        #sidebar, #topnav {
+            display: none !important;
+        }
+
+        #main {
+            margin-left: 0 !important;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .reporte-header {
+            border-bottom: 3px solid #5cb85c;
+            margin-bottom: 20px;
+        }
+
+        .reporte-footer {
+            border-top: 2px solid #5cb85c;
+            margin-top: 40px;
+            padding-top: 8px;
+            font-style: italic;
+            color: #555;
+        }
+    }
+
+    .reporte-header {
+        border-bottom: 3px solid #5cb85c;
+        margin-bottom: 20px;
+    }
+
+    .reporte-footer {
+        border-top: 2px solid #5cb85c;
+        margin-top: 40px;
+        padding-top: 8px;
+        font-style: italic;
+        color: #555;
+    }
+</style>
+<div class="no-print mb-4">
+    <div class="d-flex align-items-center mb-3 gap-2">
+        <h4 class="fw-bold mb-0">
+            <i class="bi bi-file-earmark-text text-primary"></i> Reporte de Notas
+        </h4>
+    </div>
+    <form method="get" class="row g-2">
+        <div class="col-md-3">
+            <select name="grado" class="form-select">
+                <option value="">-- Seleccionar grado --</option>
+                @foreach (var g in new[]{"1 grado","2 grado","3 grado",
+                                "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                {
+                    <option value="@g"
+                            selected="@(ViewBag.GradoFiltro == g)">@g</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="asignaturaId" class="form-select">
+                <option value="">-- Todas las asignaturas --</option>
+                @if (asignaturas != null)
+                {
+                    @foreach (var s in asignaturas)
+                    {
+                        <option value="@s.Id"
+                                selected="@(ViewBag.AsigFiltro!=null &&
+                                ViewBag.AsigFiltro == s.Id)">
+                            @s.Nombre
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" onclick="window.print()"
+                    class="btn btn-success w-100">
+                <i class="bi bi-printer"></i> Imprimir
+            </button>
+        </div>
+    </form>
+</div>
+<div class="bg-white p-4 rounded shadow-sm" style="max-width:900px">
+    <div class="reporte-header pb-2">
+        <img src="~/images/logo.png" alt="EDUCONTROL"
+             style="height:70px;width:auto;" />
+        <h4 class="fw-bold text-center mt-2 mb-0">REPORTE DE NOTAS</h4>
+    </div>
+    <div class="mb-4" style="line-height:2">
+        <p class="mb-1"><strong>Grado / Curso:</strong> @ViewBag.GradoFiltro</p>
+        <p class="mb-1"><strong>Seccion:</strong> &nbsp;</p>
+        <p class="mb-1"><strong>Docente:</strong> @ViewBag.Docente</p>
+        <p class="mb-1"><strong>Fecha:</strong> @ViewBag.FechaReporte</p>
+        <p class="mb-1"><strong>Hora:</strong> @ViewBag.HoraReporte</p>
+    </div>
+    <p class="fw-semibold mb-1">DETALLE DE NOTAS</p>
+    <table class="table table-bordered table-sm">
+        <thead class="table-light">
+            <tr>
+                <th style="width:40px">N&ordm;</th>
+                <th>Nombre del Estudiante</th>
+                <th class="text-center">Periodo 1</th>
+                <th class="text-center">Periodo 2</th>
+                <th class="text-center">Periodo 3</th>
+                <th class="text-center">Promedio</th>
+                <th class="text-center">Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int num = 1;
+            }
+            @foreach (var f in detalle)
+            {
+                <tr>
+                    <td class="text-center">@num</td>
+                    <td>@f.NombreCompleto</td>
+                    <td class="text-center">@f.Periodo1</td>
+                    <td class="text-center">@f.Periodo2</td>
+                    <td class="text-center">@f.Periodo3</td>
+                    <td class="text-center"><strong>@f.Promedio</strong></td>
+                    <td class="text-center">
+                        <span class="badge
+     @(f.Estado == "Aprobado" ? "bg-success" : "bg-danger")">
+                            @f.Estado
+                        </span>
+                    </td>
+                </tr>
+                num++;
+            }
+            @if (!detalle.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-muted">
+                        Selecciona un grado para ver el reporte.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="mt-4">
+        <p class="fw-bold mb-2">RESUMEN</p>
+        <p class="mb-1">
+            <strong>Total estudiantes:</strong>
+            @ViewBag.TotalEstudiantes
+        </p>
+        <p class="mb-1">
+            <strong>Promedio general del curso:</strong>
+            @ViewBag.PromedioGeneral
+        </p>
+        <p class="mb-1"><strong>Aprobados:</strong> @ViewBag.Aprobados</p>
+        <p class="mb-1"><strong>Reprobados:</strong> @ViewBag.Reprobados</p>
+    </div>
+    <div class="reporte-footer mt-5">
+        Documento generado automaticamente por el sistema de control escolar.
+    </div>
+</div>

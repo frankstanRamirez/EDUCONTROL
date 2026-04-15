@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Notas";
+}
+
+<h4 class="fw-bold mb-4">
+    <i class="bi bi-pencil-square text-primary"></i> Módulo de Notas
+</h4>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4 text-center">
+                <i class="bi bi-plus-circle text-primary" style="font-size:3rem"></i>
+                <h5 class="fw-bold mt-3">Registrar Nota</h5>
+                <p class="text-muted">
+                    Ingresa las calificaciones de un alumno por asignatura y periodo.
+                </p>
+                <a asp-action="Registrar" class="btn btn-primary w-100">
+                    <i class="bi bi-pencil"></i> Ir a registrar
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4 text-center">
+                <i class="bi bi-search text-success" style="font-size:3rem"></i>
+                <h5 class="fw-bold mt-3">Consultar Notas</h5>
+                <p class="text-muted">
+                    Revisa y filtra las notas registradas por grado y asignatura.
+                </p>
+                <a asp-action="Consultar" class="btn btn-success w-100">
+                    <i class="bi bi-eye"></i> Ir a consultar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

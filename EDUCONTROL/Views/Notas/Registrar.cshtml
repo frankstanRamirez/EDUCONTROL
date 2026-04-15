@@ -1,0 +1,146 @@
+﻿@model EDUCONTROL.Models.Nota
+@{
+    ViewData["Title"] = "Registrar Nota";
+    var asignaturas = ViewBag.Asignaturas as List<EDUCONTROL.Models.Asignatura>;
+    var alumnos = ViewBag.Alumnos as List<EDUCONTROL.Models.Alumno>;
+}
+
+<div class="d-flex align-items-center mb-4 gap-2">
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i>
+    </a>
+    <h4 class="fw-bold mb-0">Registrar Nota</h4>
+</div>
+
+<div class="card shadow-sm" style="max-width:620px">
+    <div class="card-body p-4">
+        <form asp-action="Registrar" method="post">
+            @Html.AntiForgeryToken()
+
+            <!-- ── Buscador dinámico de alumno ── -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Buscar alumno</label>
+                <input type="text" id="buscadorAlumno" class="form-control"
+                       placeholder="Escribe nombre o apellido..." autocomplete="off" />
+                <div id="listaAlumnos" class="list-group mt-1"
+                     style="max-height:200px; overflow-y:auto; display:none;"></div>
+                <!-- Campo hidden que guarda el ID seleccionado -->
+                <input type="hidden" name="AlumnoId" id="alumnoIdHidden"
+                       value="@Model?.AlumnoId" />
+                <div id="alumnoSeleccionado" class="mt-2 text-success fw-semibold"></div>
+            </div>
+
+            <!-- ── Asignatura ── -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Asignatura</label>
+                <select name="AsignaturaId" class="form-select">
+                    <option value="">-- Seleccionar asignatura --</option>
+                    @if (asignaturas != null)
+                    {
+                        @foreach (var s in asignaturas)
+                        {
+                            <option value="@s.Id">@s.Nombre</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!-- ── Periodo activo (selector) ── -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Periodo a registrar</label>
+                <select id="periodoSelector" class="form-select" onchange="mostrarPeriodo()">
+                    <option value="1">Periodo 1</option>
+                    <option value="2">Periodo 2</option>
+                    <option value="3">Periodo 3</option>
+                </select>
+            </div>
+
+            <!-- ── Nota del periodo seleccionado ── -->
+            <div class="mb-4">
+                <label id="labelNota" class="form-label fw-semibold">Nota — Periodo 1</label>
+                <input type="number" id="notaInput" step="0.1" min="0" max="10"
+                       class="form-control" style="max-width:180px"
+                       placeholder="0.0 — 10.0" />
+                <!-- Campos hidden para los 3 periodos -->
+                <input type="hidden" name="Periodo1" id="p1" value="" />
+                <input type="hidden" name="Periodo2" id="p2" value="" />
+                <input type="hidden" name="Periodo3" id="p3" value="" />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary"
+                        onclick="prepararPeriodos()">
+                    <i class="bi bi-save"></i> Guardar nota
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // ── Datos de alumnos para búsqueda en tiempo real ──
+        const alumnos = [
+            @if (alumnos != null)
+            {
+                    @foreach (var a in alumnos)
+                    {
+                            @Html.Raw($"{{ id: {a.Id}, nombre: '{a.NombreCompleto.Replace("'", "\\'")} ({a.Grado})' }},")
+                    }
+            }
+        ];
+
+        const buscador   = document.getElementById('buscadorAlumno');
+        const lista      = document.getElementById('listaAlumnos');
+        const hiddenId   = document.getElementById('alumnoIdHidden');
+        const selecLabel = document.getElementById('alumnoSeleccionado');
+
+        buscador.addEventListener('input', function () {
+            const q = this.value.toLowerCase().trim();
+            lista.innerHTML = '';
+            if (q.length < 2) { lista.style.display = 'none'; return; }
+
+            const resultados = alumnos.filter(a => a.nombre.toLowerCase().includes(q));
+            if (resultados.length === 0) {
+                lista.style.display = 'none'; return;
+            }
+
+            resultados.forEach(a => {
+                const item = document.createElement('button');
+                item.type = 'button';
+                item.className = 'list-group-item list-group-item-action';
+                item.textContent = a.nombre;
+                item.onclick = () => {
+                    hiddenId.value   = a.id;
+                    buscador.value   = a.nombre;
+                    selecLabel.textContent = '✔ ' + a.nombre;
+                    lista.style.display = 'none';
+                };
+                lista.appendChild(item);
+            });
+            lista.style.display = 'block';
+        });
+
+        // Cerrar lista al hacer clic fuera
+        document.addEventListener('click', e => {
+            if (!buscador.contains(e.target)) lista.style.display = 'none';
+        });
+
+        // ── Periodo activo ──
+        function mostrarPeriodo() {
+            const p = document.getElementById('periodoSelector').value;
+            document.getElementById('labelNota').textContent = 'Nota — Periodo ' + p;
+            document.getElementById('notaInput').value = '';
+        }
+
+        function prepararPeriodos() {
+            const p    = document.getElementById('periodoSelector').value;
+            const nota = document.getElementById('notaInput').value;
+            // Solo llena el periodo activo, los demás quedan vacíos
+            document.getElementById('p1').value = p === '1' ? nota : '';
+            document.getElementById('p2').value = p === '2' ? nota : '';
+            document.getElementById('p3').value = p === '3' ? nota : '';
+        }
+    </script>
+}

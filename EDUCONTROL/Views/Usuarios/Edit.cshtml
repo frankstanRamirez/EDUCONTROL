@@ -1,0 +1,75 @@
+﻿@model EDUCONTROL.Models.Usuario
+@{
+    ViewData["Title"] = "Nuevo usuario";
+}
+<div class="d-flex align-items-center mb-4 gap-2">
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-arrow-left"></i>
+    </a>
+    <h4 class="fw-bold mb-0">Nuevo usuario</h4>
+</div>
+<div class="card shadow-sm" style="max-width:560px">
+    <div class="card-body p-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="NombreCompleto" class="form-label fw-semibold"></label>
+                <input asp-for="NombreCompleto" class="form-control" />
+                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="NombreUsuario" class="form-label fw-semibold"></label>
+                <input asp-for="NombreUsuario" class="form-control" />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Contrasena" class="form-label fw-semibold"></label>
+                <input asp-for="Contrasena" type="password" class="form-control" />
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Rol" class="form-label fw-semibold"></label>
+                <select asp-for="Rol" class="form-select" id="rolSel"
+                        onchange="toggleGrado()">
+                    <option value="Director">Director</option>
+                    <option value="Secretaria">Secretaria</option>
+                    <option value="Profesor" selected>Profesor</option>
+                </select>
+            </div>
+            <div class="mb-3" id="gradoDiv">
+                <label asp-for="GradoAsignado" class="form-label fw-semibold"></label>
+                <select asp-for="GradoAsignado" class="form-select">
+                    <option value="">-- Seleccionar grado --</option>
+                    @foreach (var g in new[]{"1 grado","2 grado","3 grado",
+                                                                                "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                    {
+                        <option value="@g">@g</option>
+                    }
+                </select>
+                <span asp-validation-for="GradoAsignado" class="text-danger"></span>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Guardar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function toggleGrado(){
+         const r = document.getElementById('rolSel').value;
+         document.getElementById('gradoDiv').style.display =
+         r==='Profesor' ? 'block':'none';
+        }
+        toggleGrado();
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    var rol = Context.Session.GetString("UsuarioRol") ?? "";
+}
+<h4 class="mb-4 fw-bold">
+    <i class="bi bi-speedometer2 text-primary"></i> Panel de Control
+</h4>
+<!-- Tarjetas: Director / Secretaria -->
+@if (rol == "Director" || rol == "Secretaria")
+{
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="stat-card" style="background:#2E75B6">
+                <i class="bi bi-people-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.TotalAlumnos</div>
+                    <div class="lbl">Alumnos activos</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background:#1F3864">
+                <i class="bi bi-person-badge-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.TotalUsuarios</div>
+                    <div class="lbl">Usuarios activos</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background:#1F3864">
+                <i class="bi bi-person-badge-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.TotalUsuarios</div>
+                    <div class="lbl">Usuarios activos</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background:#28a745">
+                <i class="bi bi-calendar-check-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.AsistenciasHoy</div>
+                    <div class="lbl">Presentes hoy</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background:#fd7e14">
+                <i class="bi bi-pencil-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.TotalNotas</div>
+                    <div class="lbl">Notas registradas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+<!-- Tarjetas: Profesor -->
+@if (rol == "Profesor")
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i>
+        Estas viendo informacion de: <strong>@ViewBag.Grado</strong>
+    </div>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card" style="background:#2E75B6">
+                <i class="bi bi-people-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.TotalAlumnos</div>
+                    <div class="lbl">Alumnos en mi grado</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card" style="background:#28a745">
+                <i class="bi bi-calendar-check-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.AsistenciasHoy</div>
+                    <div class="lbl">Presentes hoy</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card" style="background:#fd7e14">
+                <i class="bi bi-pencil-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.TotalNotas</div>
+                    <div class="lbl">Notas registradas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Accesos rapidos -->
+<h6 class="text-muted mb-3">Accesos rapidos</h6>
+<div class="d-flex flex-wrap gap-2">
+    <a asp-controller="Asistencia" asp-action="Registrar"
+       class="btn btn-outline-primary">
+        <i class="bi bi-calendar-plus"></i> Registrar asistencia
+    </a>
+    <a asp-controller="Notas" asp-action="Registrar"
+       class="btn btn-outline-primary">
+        <i class="bi bi-plus-circle"></i> Registrar nota
+    </a>
+    @if (rol == "Director" || rol == "Secretaria")
+    {
+        <a asp-controller="Alumnos" asp-action="Create"
+           class="btn btn-outline-success">
+            <i class="bi bi-person-plus"></i> Nuevo alumno
+        </a>
+        <a asp-controller="Reportes" asp-action="Asistencia"
+           class="btn btn-outline-secondary">
+            <i class="bi bi-file-earmark-bar-graph"></i> Ver reportes
+        </a>
+    }
+</div>

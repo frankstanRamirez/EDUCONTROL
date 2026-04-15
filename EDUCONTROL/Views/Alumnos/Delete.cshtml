@@ -1,0 +1,27 @@
+﻿@model EDUCONTROL.Models.Alumno
+@{
+    ViewData["Title"] = "Eliminar alumno";
+}
+<h2 class="mb-4 text-danger">Eliminar alumno</h2>
+<p class="text-muted">Esta accion no se puede deshacer. Confirma que deseas eliminar:</p>
+<div class="card border-danger shadow-sm" style="max-width:500px">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">NIE</dt>
+            <dd class="col-sm-8"><code>@Model.NIE</code></dd>
+            <dt class="col-sm-4">Nombre</dt>
+            <dd class="col-sm-8">@Model.NombreCompleto</dd>
+            <dt class="col-sm-4">Grado</dt>
+            <dd class="col-sm-8">@Model.Grado</dd>
+            <dt class="col-sm-4">Estado</dt>
+            <dd class="col-sm-8">@Model.Estado</dd>
+        </dl>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">Si, eliminar</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

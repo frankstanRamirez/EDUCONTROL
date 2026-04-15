@@ -1,0 +1,156 @@
+﻿@{
+    ViewData["Title"] = "Reporte de Asistencia";
+    var detalle = ViewBag.Detalle as IEnumerable<dynamic> ?? new List<dynamic>();
+}
+<style>
+    @@media print {
+        .no-print {
+            display: none !important;
+        }
+
+        #sidebar, #topnav {
+            display: none !important;
+        }
+
+        #main {
+            margin-left: 0 !important;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .reporte-header {
+            border-bottom: 3px solid #5cb85c;
+            margin-bottom: 20px;
+        }
+
+        .reporte-footer {
+            border-top: 2px solid #5cb85c;
+            margin-top: 40px;
+            padding-top: 8px;
+            font-style: italic;
+            color: #555;
+        }
+    }
+
+    .reporte-header {
+        border-bottom: 3px solid #5cb85c;
+        margin-bottom: 20px;
+    }
+
+    .reporte-footer {
+        border-top: 2px solid #5cb85c;
+        margin-top: 40px;
+        padding-top: 8px;
+        font-style: italic;
+        color: #555;
+    }
+</style>
+<!-- Filtros (solo pantalla) -->
+<div class="no-print mb-4">
+    <div class="d-flex align-items-center mb-3 gap-2">
+        <h4 class="fw-bold mb-0">
+            <i class="bi bi-file-earmark-bar-graph text-primary"></i>
+            Reporte de Asistencia
+        </h4>
+    </div>
+    <form method="get" class="row g-2">
+        <div class="col-md-3">
+            <select name="grado" class="form-select">
+                <option value="">-- Seleccionar grado --</option>
+                @foreach (var g in new[]{"1 grado","2 grado","3 grado",
+                                "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                {
+                    <option value="@g"
+                            selected="@(ViewBag.GradoFiltro == g)">@g</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="fecha" value="@ViewBag.FechaFiltro"
+                   class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" onclick="window.print()"
+                    class="btn btn-success w-100">
+                <i class="bi bi-printer"></i> Imprimir
+            </button>
+        </div>
+    </form>
+</div>
+<!-- Cuerpo del reporte -->
+<div class="bg-white p-4 rounded shadow-sm" style="max-width:820px">
+    <!-- Encabezado -->
+    <div class="reporte-header pb-2">
+        <img src="~/images/logo.png" alt="EDUCONTROL"
+             style="height:70px;width:auto;" />
+        <h4 class="fw-bold text-center mt-2 mb-0">REPORTE DE ASISTENCIA</h4>
+
+
+
+    </div>
+    <!-- Datos generales -->
+    <div class="mb-4" style="line-height:2">
+        <p class="mb-1"><strong>Grado / Curso:</strong> @ViewBag.GradoFiltro</p>
+        <p class="mb-1"><strong>Seccion:</strong> &nbsp;</p>
+        <p class="mb-1"><strong>Docente:</strong> @ViewBag.Docente</p>
+        <p class="mb-1"><strong>Fecha:</strong> @ViewBag.FechaReporte</p>
+        <p class="mb-1"><strong>Hora:</strong> @ViewBag.HoraReporte</p>
+    </div>
+    <!-- Tabla de detalle -->
+    <p class="fw-semibold mb-1">DETALLE POR ESTUDIANTE</p>
+    <table class="table table-bordered table-sm">
+        <thead class="table-light">
+            <tr>
+                <th style="width:40px">N&ordm;</th>
+                <th>Nombre</th>
+                <th class="text-center">Asistencias</th>
+                <th class="text-center">Ausencias</th>
+                <th class="text-center">Tardias</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int num = 1;
+            }
+            @foreach (var f in detalle)
+            {
+                <tr>
+                    <td class="text-center">@num</td>
+                    <td>@f.NombreCompleto</td>
+                    <td class="text-center">@f.Asistencias</td>
+                    <td class="text-center">@f.Ausencias</td>
+                    <td class="text-center">@f.Tardias</td>
+                </tr>
+                num++;
+            }
+            @if (!detalle.Any())
+            {
+                <tr>
+                    <td colspan="5" class="text-center text-muted">
+                        Selecciona un grado y fecha para ver el reporte.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- Resumen -->
+    <div class="mt-4">
+        <p class="fw-semibold mb-2">RESUMEN DE ASISTENCIA</p>
+        <p class="mb-1">
+            <strong>Total de estudiantes:</strong>
+            @ViewBag.TotalEstudiantes
+        </p>
+        <p class="mb-1"><strong>Presentes:</strong> @ViewBag.TotalPresentes</p>
+        <p class="mb-1"><strong>Ausentes:</strong> @ViewBag.TotalAusentes</p>
+        <p class="mb-1"><strong>Tardanzas:</strong> @ViewBag.TotalTardanzas</p>
+    </div>
+    <!-- Pie -->
+    <div class="reporte-footer mt-5">
+        Documento generado automaticamente por el sistema de control escolar.
+    </div>
+</div>

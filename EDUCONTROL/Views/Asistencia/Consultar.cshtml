@@ -1,0 +1,66 @@
+﻿@model IEnumerable<EDUCONTROL.Models.Asistencia>
+@{
+    ViewData["Title"] = "Consultar Asistencia";
+}
+<h2 class="mb-3">Consultar Asistencia</h2>
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input type="date" name="fecha" value="@ViewBag.FechaFiltro"
+               class="form-control" />
+    </div>
+    @if (ViewBag.EsAdminOSecretaria == true)
+    {
+        <div class="col-md-3">
+            <select name="grado" class="form-select">
+                <option value="">-- Todos los grados --</option>
+                @foreach (var g in new[]{"1 grado","2 grado","3 grado",
+                        "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                {
+                    <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
+                }
+            </select>
+        </div>
+    }
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Filtrar</button>
+    </div>
+    <div class="col-md-1">
+        <a asp-action="Consultar" class="btn btn-outline-secondary w-100">X</a>
+    </div>
+</form>
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Fecha</th>
+            <th>NIE</th>
+            <th>Alumno</th>
+            <th>Grado</th>
+            <th>Estado</th>
+            <th>Registrado por</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.Fecha.ToString("dd/MM/yyyy")</td>
+                <td><code>@a.Alumno?.NIE</code></td>
+                <td>@a.Alumno?.NombreCompleto</td>
+                <td>@a.Alumno?.Grado</td>
+                <td>
+                    <span class="badge
+     @(a.Estado == "Presente" ? "bg-success" :
+                           a.Estado == "Ausente" ? "bg-danger" : "bg-warning text-dark")">
+                        @a.Estado
+                    </span>
+                </td>
+                <td>@a.RegistradoPor</td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">Sin registros.</td></tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Registrar" class="btn btn-primary">+ Registrar asistencia</a>

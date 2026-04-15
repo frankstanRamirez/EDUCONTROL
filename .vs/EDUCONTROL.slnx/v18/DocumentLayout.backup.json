@@ -1,0 +1,804 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\filters\\sesionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\filters\\sesionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\models\\nota.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\models\\nota.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\notas\\consultar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\notas\\consultar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\reportescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\reportescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\notascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\notascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\notas\\registrar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\notas\\registrar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\notas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\notas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\shared\\_loginlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\shared\\_loginlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\asignaturas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\asignaturas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\asignaturas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\asignaturas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\asignaturascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\asignaturascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\models\\asignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\models\\asignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\reportes\\notas.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\reportes\\notas.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\reportes\\asistencia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\reportes\\asistencia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\asistencia\\registrar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\asistencia\\registrar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\usuarios\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\usuarios\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\models\\alumno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\models\\alumno.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\asistenciacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\asistenciacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\alumnoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\alumnoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\models\\asistencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\models\\asistencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\migrations\\20260409180151_agregarusuariosasistencianotas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\migrations\\20260409180151_agregarusuariosasistencianotas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\migrations\\20260409170359_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\migrations\\20260409170359_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\asistencia\\consultar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\asistencia\\consultar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\alumnos\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\alumnos\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\alumnos\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\alumnos\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\alumnos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\alumnos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\alumnos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\alumnos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\educontrol.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\educontrol.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\migrations\\20260410060652_crearbasededatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\migrations\\20260410060652_crearbasededatos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|c:\\users\\frank\\onedrive\\escritorio\\educontrol\\educontrol\\migrations\\20260410174437_periodosopcionales.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{28068F54-A8EF-8C25-0F0C-0B14D9DE2A81}|EDUCONTROL\\EDUCONTROL.csproj|solutionrelative:educontrol\\migrations\\20260410174437_periodosopcionales.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 126,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Nota.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Nota.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Models\\Nota.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Nota.cs",
+              "RelativeToolTip": "EDUCONTROL\\Models\\Nota.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T17:09:26.769Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NotasController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\NotasController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\NotasController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\NotasController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\NotasController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAowE4AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:49:16.961Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Registrar.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Notas\\Registrar.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Notas\\Registrar.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Notas\\Registrar.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Notas\\Registrar.cshtml",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAvwFsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:17:11.965Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAKsAAAAAAAAAAAAAALYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-10T05:12:27.984Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SesionAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Filters\\SesionAttribute.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Filters\\SesionAttribute.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Filters\\SesionAttribute.cs",
+              "RelativeToolTip": "EDUCONTROL\\Filters\\SesionAttribute.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T05:01:02.056Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "EDUCONTROL\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:57:02.71Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "EDUCONTROL\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\appsettings.Development.json",
+              "RelativeToolTip": "EDUCONTROL\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-09T16:21:13.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReportesController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\ReportesController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\ReportesController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\ReportesController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\ReportesController.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAuwFsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:49:31.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "20260410174437_PeriodosOpcionales.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260410174437_PeriodosOpcionales.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Migrations\\20260410174437_PeriodosOpcionales.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260410174437_PeriodosOpcionales.cs",
+              "RelativeToolTip": "EDUCONTROL\\Migrations\\20260410174437_PeriodosOpcionales.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T17:44:38.1Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Consultar.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Notas\\Consultar.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Notas\\Consultar.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Notas\\Consultar.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Notas\\Consultar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEIAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:17:25.655Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Notas\\Index.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Notas\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Notas\\Index.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Notas\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-10T17:28:23.223Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T16:50:22.983Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asignaturas\\Create.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Asignaturas\\Create.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asignaturas\\Create.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Asignaturas\\Create.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-10T06:25:19.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "20260410060652_CrearBaseDeDatos.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260410060652_CrearBaseDeDatos.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Migrations\\20260410060652_CrearBaseDeDatos.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260410060652_CrearBaseDeDatos.cs",
+              "RelativeToolTip": "EDUCONTROL\\Migrations\\20260410060652_CrearBaseDeDatos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T06:06:53.008Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_LoginLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Shared\\_LoginLayout.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Shared\\_LoginLayout.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Shared\\_LoginLayout.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Shared\\_LoginLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-10T05:28:03.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AsignaturasController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AsignaturasController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\AsignaturasController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AsignaturasController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\AsignaturasController.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAkwAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T06:23:13.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asignaturas\\Index.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Asignaturas\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asignaturas\\Index.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Asignaturas\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAkAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-10T06:24:28.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Registrar.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asistencia\\Registrar.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Asistencia\\Registrar.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asistencia\\Registrar.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Asistencia\\Registrar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:16:21.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Account\\Login.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:13:51.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Dashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Dashboard\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Dashboard\\Index.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Dashboard\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-10T05:41:18.656Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Asistencia.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Reportes\\Asistencia.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Reportes\\Asistencia.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Reportes\\Asistencia.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Reportes\\Asistencia.cshtml",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAAAGEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:18:46.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Notas.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Reportes\\Notas.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Reportes\\Notas.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Reportes\\Notas.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Reportes\\Notas.cshtml",
+              "ViewState": "AgIAAGMAAAAAAAAAAADwv28AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:18:58.974Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Asignatura.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Asignatura.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Models\\Asignatura.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Asignatura.cs",
+              "RelativeToolTip": "EDUCONTROL\\Models\\Asignatura.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAYwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T04:54:10.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Usuarios\\Edit.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Usuarios\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Usuarios\\Edit.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Usuarios\\Edit.cshtml",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:15:15.833Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Usuarios\\Create.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Usuarios\\Create.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Usuarios\\Create.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Usuarios\\Create.cshtml",
+              "ViewState": "AgIAACYAAAAAAAAAAAAQwEcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:15:03.177Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Usuarios\\Index.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Usuarios\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Usuarios\\Index.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Usuarios\\Index.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:14:41.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Alumno.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Alumno.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Models\\Alumno.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Alumno.cs",
+              "RelativeToolTip": "EDUCONTROL\\Models\\Alumno.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:53:42.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AsistenciaController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AsistenciaController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\AsistenciaController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AsistenciaController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\AsistenciaController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:48:56.125Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "AlumnosController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AlumnosController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\AlumnosController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AlumnosController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\AlumnosController.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:57:34.227Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAcAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:48:37.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwAwAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-10T05:05:37.026Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "EDUCONTROL\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwB8AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T15:48:08.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Program.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Program.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Program.cs",
+              "RelativeToolTip": "EDUCONTROL\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T16:21:11.462Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Asistencia.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Asistencia.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Models\\Asistencia.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Asistencia.cs",
+              "RelativeToolTip": "EDUCONTROL\\Models\\Asistencia.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T17:08:48.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\Usuario.cs",
+              "RelativeToolTip": "EDUCONTROL\\Models\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T17:08:35.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "AppDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeToolTip": "EDUCONTROL\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T18:14:51.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "20260409180151_AgregarUsuariosAsistenciaNotas.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260409180151_AgregarUsuariosAsistenciaNotas.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Migrations\\20260409180151_AgregarUsuariosAsistenciaNotas.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260409180151_AgregarUsuariosAsistenciaNotas.cs",
+              "RelativeToolTip": "EDUCONTROL\\Migrations\\20260409180151_AgregarUsuariosAsistenciaNotas.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T18:01:51.897Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "20260409170359_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260409170359_InitialCreate.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Migrations\\20260409170359_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Migrations\\20260409170359_InitialCreate.cs",
+              "RelativeToolTip": "EDUCONTROL\\Migrations\\20260409170359_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T17:04:00.398Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Consultar.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asistencia\\Consultar.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Asistencia\\Consultar.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Asistencia\\Consultar.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Asistencia\\Consultar.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T17:16:35.712Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Delete.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Alumnos\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Delete.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Alumnos\\Delete.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T15:59:06.577Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Edit.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Alumnos\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Edit.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Alumnos\\Edit.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T15:58:52.39Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Create.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Alumnos\\Create.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Create.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Alumnos\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T15:58:39.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Index.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Alumnos\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Alumnos\\Index.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Alumnos\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAD0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T15:58:20.578Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "EDUCONTROL",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\EDUCONTROL.csproj",
+              "RelativeDocumentMoniker": "EDUCONTROL\\EDUCONTROL.csproj",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\EDUCONTROL.csproj",
+              "RelativeToolTip": "EDUCONTROL\\EDUCONTROL.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-09T16:53:35.275Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\appsettings.json",
+              "RelativeDocumentMoniker": "EDUCONTROL\\appsettings.json",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\appsettings.json",
+              "RelativeToolTip": "EDUCONTROL\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-09T16:52:26.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Models\\ErrorViewModel.cs",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "EDUCONTROL\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T16:53:00.313Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T16:52:25.168Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T16:52:22.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "Privacy.cshtml",
+              "DocumentMoniker": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Home\\Privacy.cshtml",
+              "RelativeDocumentMoniker": "EDUCONTROL\\Views\\Home\\Privacy.cshtml",
+              "ToolTip": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\Views\\Home\\Privacy.cshtml",
+              "RelativeToolTip": "EDUCONTROL\\Views\\Home\\Privacy.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-09T16:52:19.902Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

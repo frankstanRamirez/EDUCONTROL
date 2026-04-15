@@ -1,0 +1,75 @@
+﻿@model IEnumerable<EDUCONTROL.Models.Nota>
+@{
+    ViewData["Title"] = "Consultar Notas";
+}
+<h2 class="mb-3">Consultar Notas</h2>
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <select name="grado" class="form-select">
+            <option value="">-- Todos los grados --</option>
+            @foreach (var g in new[]{"1 grado","2 grado","3 grado",
+                        "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+            {
+                <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-3">
+        <input name="materia" value="@ViewBag.MateriaFiltro"
+               class="form-control" placeholder="Filtrar por materia" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">Filtrar</button>
+    </div>
+    <div class="col-md-1">
+        <a asp-action="Consultar" class="btn btn-outline-secondary w-100">X</a>
+    </div>
+</form>
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Alumno</th>
+            <th>Grado</th>
+            <th>Asignatura</th>
+            <th>P1</th>
+            <th>P2</th>
+            <th>P3</th>
+            <th>Promedio</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var n in Model)
+        {
+            <tr>
+                <td>@n.Alumno?.NombreCompleto</td>
+                <td>@n.Alumno?.Grado</td>
+                <td>@n.Asignatura?.Nombre</td>
+                <td class="text-muted">@(n.Periodo1?.ToString("0.00") ?? "—")</td>
+                <td class="text-muted">@(n.Periodo2?.ToString("0.00") ?? "—")</td>
+                <td class="text-muted">@(n.Periodo3?.ToString("0.00") ?? "—")</td>
+                <td><strong>@n.Promedio.ToString("0.00")</strong></td>
+                <td>
+                    @if (n.Estado == "Aprobado")
+                    {
+                        <span class="badge bg-success">
+                            <i class="bi bi-check-circle-fill"></i> @n.Estado
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">
+                            <i class="bi bi-x-circle-fill"></i> @n.Estado
+                        </span>
+                    }
+                </td>
+            </tr>
+        
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="8" class="text-center text-muted">Sin registros.</td></tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Registrar" class="btn btn-primary">+ Registrar nota</a>
