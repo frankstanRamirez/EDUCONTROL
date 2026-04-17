@@ -25,28 +25,30 @@
 </div>
 <form method="get" class="row g-2 mb-3">
     <div class="col-md-4">
-        <input name="buscar" value="@ViewBag.Buscar" class="form-control"
-               placeholder="Buscar por NIE o nombre..." />
+        <input name="buscar" value="@ViewBag.Buscar"
+               class="form-control" placeholder="Buscar por NIE o nombre..." />
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <select name="grado" class="form-select">
             <option value="">-- Todos los grados --</option>
-            @foreach (var g in new[]{"1 grado","2 grado","3 grado","4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+            @foreach (var g in new[]{"1 grado","2 grado","3 grado",
+                                "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
             {
-            <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option> }
+                <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
+            }
         </select>
     </div>
     <div class="col-md-2">
-        <select name="estado" class="form-select">
-            <option value="">Todos</option>
-            <option value="Activo"
-                selected="@(ViewBag.EstadoFiltro == "Activo")">Activo</option>
-            <option value="Inactivo"
-                    selected="@(ViewBag.EstadoFiltro == "Inactivo")">Inactivo</option>
+        <select name="seccion" class="form-select">
+            <option value="">-- Sección --</option>
+            @foreach (var s in new[] { "A", "B", "C", "D" })
+            {
+                <option value="@s" selected="@(ViewBag.SeccionFiltro == s)">@s</option>
+            }
         </select>
     </div>
     <div class="col-md-2">
-        <button type="submit" class="btn btn-outline-primary w-100">Filtrar</button>
+        <button type="submit" class="btn btn-primary w-100">Filtrar</button>
     </div>
     <div class="col-md-1">
         <a asp-action="Index" class="btn btn-outline-secondary w-100">X</a>

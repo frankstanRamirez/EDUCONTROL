@@ -1,10 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Reporte de Notas";
-    var detalle = ViewBag.Detalle as IEnumerable<dynamic> ?? new
-   List<dynamic>();
+    var detalle = ViewBag.Detalle as IEnumerable<dynamic> ?? new List<dynamic>();
     var asignaturas = ViewBag.Asignaturas as List<EDUCONTROL.Models.Asignatura>;
 }
 <style>
+    /* ── Lo que se oculta al imprimir ── */
     @@media print {
         .no-print {
             display: none !important;
@@ -22,6 +22,10 @@
             background: #fff;
         }
 
+        .solo-pantalla {
+            display: none !important;
+        }
+
         .reporte-header {
             border-bottom: 3px solid #5cb85c;
             margin-bottom: 20px;
@@ -33,6 +37,12 @@
             padding-top: 8px;
             font-style: italic;
             color: #555;
+        }
+    }
+    /* ── Lo que se oculta en pantalla (solo aparece al imprimir) ── */
+    @@media screen {
+        .solo-impresion {
+            display: none !important;
         }
     }
 
@@ -49,6 +59,8 @@
         color: #555;
     }
 </style>
+
+<!-- ══ FILTROS (solo pantalla) ══════════════════════════════════ -->
 <div class="no-print mb-4">
     <div class="d-flex align-items-center mb-3 gap-2">
         <h4 class="fw-bold mb-0">
@@ -60,10 +72,9 @@
             <select name="grado" class="form-select">
                 <option value="">-- Seleccionar grado --</option>
                 @foreach (var g in new[]{"1 grado","2 grado","3 grado",
-                                "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                                        "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
                 {
-                    <option value="@g"
-                            selected="@(ViewBag.GradoFiltro == g)">@g</option>
+                    <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
                 }
             </select>
         </div>
@@ -75,8 +86,7 @@
                     @foreach (var s in asignaturas)
                     {
                         <option value="@s.Id"
-                                selected="@(ViewBag.AsigFiltro!=null &&
-                                ViewBag.AsigFiltro == s.Id)">
+                                selected="@(ViewBag.AsigFiltro!=null&&ViewBag.AsigFiltro==s.Id)">
                             @s.Nombre
                         </option>
                     }
@@ -94,24 +104,117 @@
         </div>
     </form>
 </div>
-<div class="bg-white p-4 rounded shadow-sm" style="max-width:900px">
+
+<!-- ══ VISTA PANTALLA: solo datos, sin formato reporte ══════════ -->
+<div class="solo-pantalla">
+    @if (detalle.Any())
+    {
+        <!-- Datos informativos simples -->
+        <div class="card shadow-sm mb-3 p-3" style="max-width:700px">
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <span class="text-muted">Grado / Curso:</span>
+                    <strong class="ms-2">@(ViewBag.GradoFiltro ?? "—")</strong>
+                </div>
+                <div class="col-md-6">
+                    <span class="text-muted">Sección:</span>
+                    <strong class="ms-2">@(ViewBag.SeccionFiltro ?? "—")</strong>
+                </div>
+                <div class="col-md-6">
+                    <span class="text-muted">Docente:</span>
+                    <strong class="ms-2">@ViewBag.Docente</strong>
+                </div>
+                <div class="col-md-6">
+                    <span class="text-muted">Fecha:</span>
+                    <strong class="ms-2">@ViewBag.FechaReporte</strong>
+                </div>
+                <div class="col-md-6">
+                    <span class="text-muted">Hora:</span>
+                    <strong class="ms-2">@ViewBag.HoraReporte</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de detalle -->
+        <div class="card shadow-sm" style="max-width:900px">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre del Estudiante</th>
+                        <th class="text-center">Periodo 1</th>
+                        <th class="text-center">Periodo 2</th>
+                        <th class="text-center">Periodo 3</th>
+                        <th class="text-center">Promedio</th>
+                        <th class="text-center">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int num = 1;
+                    }
+                    @foreach (var f in detalle)
+                    {
+                        <tr>
+                            <td>@num</td>
+                            <td>@f.NombreCompleto</td>
+                            <td class="text-center">@f.Periodo1</td>
+                            <td class="text-center">@f.Periodo2</td>
+                            <td class="text-center">@f.Periodo3</td>
+                            <td class="text-center"><strong>@f.Promedio</strong></td>
+                            <td class="text-center">
+                                <span class="badge @(f.Estado == "Aprobado" ? "bg-success" : "bg-danger")">
+                                    @f.Estado
+                                </span>
+                            </td>
+                        </tr>
+                        num++;
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Resumen -->
+        <div class="mt-3 d-flex gap-4">
+            <span>Total: <strong>@ViewBag.TotalEstudiantes</strong></span>
+            <span class="text-success">Aprobados: <strong>@ViewBag.Aprobados</strong></span>
+            <span class="text-danger">Reprobados: <strong>@ViewBag.Reprobados</strong></span>
+            <span>Promedio general: <strong>@ViewBag.PromedioGeneral</strong></span>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-3">
+            <i class="bi bi-info-circle"></i>
+            Selecciona un grado y haz clic en <strong>Filtrar</strong> para ver el reporte.
+        </div>
+    }
+</div>
+
+<!-- ══ SOLO AL IMPRIMIR: formato oficial completo ═══════════════ -->
+<div class="solo-impresion" style="max-width:900px">
+    <!-- Encabezado con logo -->
     <div class="reporte-header pb-2">
-        <img src="~/images/logo.png" alt="EDUCONTROL"
-             style="height:70px;width:auto;" />
+        <div class="text-center">
+            <img src="/images/logo.png" alt="EduControl"
+                 style="height:70px;width:auto;" />
+        </div>
         <h4 class="fw-bold text-center mt-2 mb-0">REPORTE DE NOTAS</h4>
     </div>
+    <!-- Datos generales -->
     <div class="mb-4" style="line-height:2">
         <p class="mb-1"><strong>Grado / Curso:</strong> @ViewBag.GradoFiltro</p>
-        <p class="mb-1"><strong>Seccion:</strong> &nbsp;</p>
+        <p class="mb-1"><strong>Sección:</strong> @ViewBag.SeccionFiltro</p>
         <p class="mb-1"><strong>Docente:</strong> @ViewBag.Docente</p>
         <p class="mb-1"><strong>Fecha:</strong> @ViewBag.FechaReporte</p>
         <p class="mb-1"><strong>Hora:</strong> @ViewBag.HoraReporte</p>
     </div>
+    <!-- Tabla -->
     <p class="fw-semibold mb-1">DETALLE DE NOTAS</p>
     <table class="table table-bordered table-sm">
         <thead class="table-light">
             <tr>
-                <th style="width:40px">N&ordm;</th>
+                <th style="width:40px">Nº</th>
                 <th>Nombre del Estudiante</th>
                 <th class="text-center">Periodo 1</th>
                 <th class="text-center">Periodo 2</th>
@@ -122,50 +225,33 @@
         </thead>
         <tbody>
             @{
-                int num = 1;
+                int numP = 1;
             }
             @foreach (var f in detalle)
             {
                 <tr>
-                    <td class="text-center">@num</td>
+                    <td class="text-center">@numP</td>
                     <td>@f.NombreCompleto</td>
                     <td class="text-center">@f.Periodo1</td>
                     <td class="text-center">@f.Periodo2</td>
                     <td class="text-center">@f.Periodo3</td>
                     <td class="text-center"><strong>@f.Promedio</strong></td>
-                    <td class="text-center">
-                        <span class="badge
-     @(f.Estado == "Aprobado" ? "bg-success" : "bg-danger")">
-                            @f.Estado
-                        </span>
-                    </td>
+                    <td class="text-center">@f.Estado</td>
                 </tr>
-                num++;
-            }
-            @if (!detalle.Any())
-            {
-                <tr>
-                    <td colspan="7" class="text-center text-muted">
-                        Selecciona un grado para ver el reporte.
-                    </td>
-                </tr>
+                numP++;
             }
         </tbody>
     </table>
+    <!-- Resumen -->
     <div class="mt-4">
         <p class="fw-bold mb-2">RESUMEN</p>
-        <p class="mb-1">
-            <strong>Total estudiantes:</strong>
-            @ViewBag.TotalEstudiantes
-        </p>
-        <p class="mb-1">
-            <strong>Promedio general del curso:</strong>
-            @ViewBag.PromedioGeneral
-        </p>
+        <p class="mb-1"><strong>Total estudiantes:</strong> @ViewBag.TotalEstudiantes</p>
+        <p class="mb-1"><strong>Promedio general:</strong> @ViewBag.PromedioGeneral</p>
         <p class="mb-1"><strong>Aprobados:</strong> @ViewBag.Aprobados</p>
         <p class="mb-1"><strong>Reprobados:</strong> @ViewBag.Reprobados</p>
     </div>
+    <!-- Pie -->
     <div class="reporte-footer mt-5">
-        Documento generado automaticamente por el sistema de control escolar.
+        Documento generado automáticamente por el sistema de control escolar.
     </div>
 </div>

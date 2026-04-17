@@ -20,19 +20,24 @@
             </div>
             <div class="row">
                 <div class="col mb-3">
-                    <label asp-for="Grado" class="form-label"></label>
+                    <label asp-for="Grado" class="form-label fw-semibold"></label>
                     <select asp-for="Grado" class="form-select">
                         <option value="">-- Seleccionar --</option>
-                        @foreach (var g in new[]{"1 grado","2 grado","3 grado","4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                        @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
                         {
-                        <option value="@g">@g</option> }
+                            <option value="@g">@g</option>
+                        }
                     </select>
                     <span asp-validation-for="Grado" class="text-danger"></span>
                 </div>
                 <div class="col mb-3">
-                    <label asp-for="AnioAcademico" class="form-label"></label>
-                    <input asp-for="AnioAcademico" class="form-control" />
-                    <span asp-validation-for="AnioAcademico" class="text-danger"></span>
+                    <label asp-for="Seccion" class="form-label fw-semibold"></label>
+                    <select asp-for="Seccion" class="form-select">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
                 </div>
             </div>
             <div class="mb-3">

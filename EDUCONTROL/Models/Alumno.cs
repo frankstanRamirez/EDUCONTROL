@@ -18,7 +18,8 @@ namespace EDUCONTROL.Models
         [MaxLength(20)]
         [Display(Name = "Grado")]
         public string Grado { get; set; } = string.Empty;
-        [Display(Name = "Seccion")]
+        [Display(Name = "Sección")]
+        [MaxLength(1)]
         public string Seccion { get; set; } = "A";
         [Display(Name = "Anio academico")]
         public int AnioAcademico { get; set; } = DateTime.Now.Year;

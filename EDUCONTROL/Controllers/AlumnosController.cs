@@ -10,17 +10,23 @@ namespace EduControl.Controllers
     {
         private readonly AppDbContext _db;
         public AlumnosController(AppDbContext db) { _db = db; }
-        public async Task<IActionResult> Index(string? buscar, string? grado)
+        public async Task<IActionResult> Index(string? buscar, string? grado, string? seccion)
         {
             var q = _db.Alumnos.AsQueryable();
+
             if (!string.IsNullOrEmpty(buscar))
-                q = q.Where(a =>
-               a.NIE.Contains(buscar) || a.NombreCompleto.Contains(buscar));
+                q = q.Where(a => a.NIE.Contains(buscar) || a.NombreCompleto.Contains(buscar));
+
             if (!string.IsNullOrEmpty(grado))
                 q = q.Where(a => a.Grado == grado);
-            ViewBag.Buscar = buscar; ViewBag.GradoFiltro = grado;
-            ViewBag.Total = await _db.Alumnos.CountAsync();
-            ViewBag.Activos = await _db.Alumnos.CountAsync(a => a.Estado == "Activo");
+
+            if (!string.IsNullOrEmpty(seccion))
+                q = q.Where(a => a.Seccion == seccion);
+
+            ViewBag.Buscar = buscar;
+            ViewBag.GradoFiltro = grado;
+            ViewBag.SeccionFiltro = seccion;
+
             return View(await q.OrderBy(a => a.NombreCompleto).ToListAsync());
         }
         public IActionResult Create() => View();
@@ -67,5 +73,7 @@ namespace EduControl.Controllers
             TempData["OK"] = "Alumno eliminado.";
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }

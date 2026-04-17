@@ -44,7 +44,7 @@ namespace EduControl.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Notas(string? grado, int? asignaturaId)
+        public async Task<IActionResult> Notas(string? grado, string? seccion, int? asignaturaId)
         {
             var qAl = _db.Alumnos.Where(a => a.Estado == "Activo").AsQueryable();
             if (!string.IsNullOrEmpty(grado)) qAl = qAl.Where(a => a.Grado == grado);
@@ -57,6 +57,12 @@ namespace EduControl.Controllers
                 qN = qN.Where(n => n.AsignaturaId == asignaturaId);
 
             var notas = await qN.ToListAsync();
+
+            // Filtrar también por sección si se seleccionó
+            if (!string.IsNullOrEmpty(seccion))
+                qAl = qAl.Where(a => a.Seccion == seccion);
+
+            ViewBag.SeccionFiltro = seccion;
 
             ViewBag.Detalle = alumnos.Select(al => {
                 var nota = notas.FirstOrDefault(n => n.AlumnoId == al.Id);
