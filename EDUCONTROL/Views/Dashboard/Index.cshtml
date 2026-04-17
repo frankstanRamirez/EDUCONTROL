@@ -2,113 +2,174 @@
     ViewData["Title"] = "Dashboard";
     var rol = Context.Session.GetString("UsuarioRol") ?? "";
 }
-<h4 class="mb-4 fw-bold">
-    <i class="bi bi-speedometer2 text-primary"></i> Panel de Control
-</h4>
-@if (rol == "Director" || rol == "Secretaria")
-{
-    <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="stat-card" style="background:#2E75B6">
-                <i class="bi bi-people-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.TotalAlumnos</div>
-                    <div class="lbl">Alumnos activos</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="stat-card" style="background:#1F3864">
-                <i class="bi bi-person-badge-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.TotalUsuarios</div>
-                    <div class="lbl">Usuarios activos</div>
-                </div>
-            </div>
-        </div>
+<div class="container-fluid mt-4">
+    <h4 class="mb-4 fw-bold">
+        <i class="bi bi-speedometer2 text-primary"></i> Panel de Control
+    </h4>
 
-        <div class="col-md-3">
-            <div class="stat-card" style="background:#fd7e14">
-                <i class="bi bi-pencil-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.TotalNotas</div>
-                    <div class="lbl">Notas registradas</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="stat-card" style="background:#28a745">
-                <i class="bi bi-calendar-check-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.AsistenciasHoy</div>
-                    <div class="lbl">Presentes hoy</div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-
-<!-- Tarjetas: Profesor -->
-@if (rol == "Profesor")
-{
-    <div class="alert alert-info">
-        <i class="bi bi-info-circle"></i>
-        Estas viendo informacion de: <strong>@ViewBag.Grado</strong>
-    </div>
-    <div class="row g-3 mb-4">
-        <div class="col-md-4">
-            <div class="stat-card" style="background:#2E75B6">
-                <i class="bi bi-people-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.TotalAlumnos</div>
-                    <div class="lbl">Alumnos en mi grado</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-card" style="background:#28a745">
-                <i class="bi bi-calendar-check-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.AsistenciasHoy</div>
-                    <div class="lbl">Presentes hoy</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-card" style="background:#fd7e14">
-                <i class="bi bi-pencil-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.TotalNotas</div>
-                    <div class="lbl">Notas registradas</div>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
-<!-- Accesos rapidos -->
-<h6 class="text-muted mb-3">Accesos rapidos</h6>
-<div class="d-flex flex-wrap gap-2">
-    <a asp-controller="Asistencia" asp-action="Registrar"
-       class="btn btn-outline-primary">
-        <i class="bi bi-calendar-plus"></i> Registrar asistencia
-    </a>
-    <a asp-controller="Notas" asp-action="Registrar"
-       class="btn btn-outline-primary">
-        <i class="bi bi-plus-circle"></i> Registrar nota
-    </a>
     @if (rol == "Director" || rol == "Secretaria")
     {
-        <a asp-controller="Alumnos" asp-action="Create"
-           class="btn btn-outline-success">
-            <i class="bi bi-person-plus"></i> Nuevo alumno
-        </a>
-        <a asp-controller="Reportes" asp-action="Asistencia"
-           class="btn btn-outline-secondary">
-            <i class="bi bi-file-earmark-bar-graph"></i> Ver reportes
-        </a>
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm border-0 bg-primary-grad">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <span class="lbl">Alumnos activos</span>
+                            <h2 class="num">@ViewBag.TotalAlumnos</h2>
+                        </div>
+                        <i class="bi bi-people-fill icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm border-0 bg-dark-grad">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <span class="lbl">Usuarios activos</span>
+                            <h2 class="num">@ViewBag.TotalUsuarios</h2>
+                        </div>
+                        <i class="bi bi-person-badge-fill icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm border-0 bg-orange-grad">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <span class="lbl">Notas registradas</span>
+                            <h2 class="num">@ViewBag.TotalNotas</h2>
+                        </div>
+                        <i class="bi bi-pencil-fill icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm border-0 bg-success-grad">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <span class="lbl">Presentes hoy</span>
+                            <h2 class="num">@ViewBag.AsistenciasHoy</h2>
+                        </div>
+                        <i class="bi bi-calendar-check-fill icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
+
+    @if (rol == "Profesor")
+    {
+        <div class="alert alert-info border-0 shadow-sm d-flex align-items-center mb-4">
+            <i class="bi bi-info-circle-fill me-2 fs-5"></i>
+            <span>Estás viendo información de: <strong>@ViewBag.Grado</strong></span>
+        </div>
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="stat-card shadow-sm bg-primary-grad">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <span class="lbl">Alumnos en mi grado</span>
+                            <h2 class="num">@ViewBag.TotalAlumnos</h2>
+                        </div>
+                        <i class="bi bi-people-fill icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <h6 class="text-muted fw-bold mb-3 uppercase small" style="letter-spacing: 1px;">Accesos rápidos</h6>
+    <div class="d-flex flex-wrap gap-2">
+        <a asp-controller="Asistencia" asp-action="Registrar" class="btn btn-white shadow-sm border px-3">
+            <i class="bi bi-calendar-plus text-primary"></i> Registrar asistencia
+        </a>
+        <a asp-controller="Notas" asp-action="Registrar" class="btn btn-white shadow-sm border px-3">
+            <i class="bi bi-plus-circle text-primary"></i> Registrar nota
+        </a>
+        @if (rol == "Director" || rol == "Secretaria")
+        {
+            <a asp-controller="Alumnos" asp-action="Create" class="btn btn-white shadow-sm border px-3">
+                <i class="bi bi-person-plus text-success"></i> Nuevo alumno
+            </a>
+            <a asp-controller="Reportes" asp-action="Asistencia" class="btn btn-white shadow-sm border px-3">
+                <i class="bi bi-file-earmark-bar-graph text-secondary"></i> Ver reportes
+            </a>
+        }
+    </div>
 </div>
+
+<style>
+    /* Estilos para las tarjetas profesionales */
+    .stat-card {
+        padding: 1.5rem;
+        border-radius: 12px;
+        color: white;
+        transition: transform 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .stat-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .stat-info .lbl {
+        display: block;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        opacity: 0.8;
+        margin-bottom: 5px;
+    }
+
+    .stat-info .num {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 0;
+    }
+
+    .stat-card .icon {
+        font-size: 2.5rem;
+        opacity: 0.3;
+    }
+
+    /* Degradados modernos */
+    .bg-primary-grad {
+        background: linear-gradient(45deg, #2E75B6, #4b92d4);
+    }
+
+    .bg-dark-grad {
+        background: linear-gradient(45deg, #1F3864, #34568b);
+    }
+
+    .bg-orange-grad {
+        background: linear-gradient(45deg, #fd7e14, #ff9e42);
+    }
+
+    .bg-success-grad {
+        background: linear-gradient(45deg, #28a745, #4cd169);
+    }
+
+    /* Botones de accesos rápidos estilo "Clean" */
+    .btn-white {
+        background: white;
+        color: #444;
+        font-weight: 500;
+        border-radius: 8px;
+    }
+
+        .btn-white:hover {
+            background: #f8f9fa;
+            color: #000;
+        }
+</style>

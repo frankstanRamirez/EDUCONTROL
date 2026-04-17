@@ -75,9 +75,19 @@ namespace EDUCONTROL.Controllers
             return RedirectToAction(nameof(Consultar));
         }
 
-        // GET: /Notas/Consultar
+        /// GET: /Notas/Consultar
         public async Task<IActionResult> Consultar(string? grado, int? asignaturaId)
         {
+            // --- BLOQUEO DE SEGURIDAD PARA PROFESORES ---
+            var rol = HttpContext.Session.GetString("UsuarioRol");
+            if (rol == "Profesor")
+            {
+                // Si intenta entrar a consultar, lo mandamos al Dashboard con un mensaje
+                TempData["Error"] = "No tienes permisos para acceder a la consulta general de notas.";
+                return RedirectToAction("Index", "Dashboard");
+            }
+            // --------------------------------------------
+
             var gradoForzado = GradoActivo();
             if (gradoForzado != null) grado = gradoForzado;
 

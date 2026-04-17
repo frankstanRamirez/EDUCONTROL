@@ -1,25 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Módulo de Notas";
-    // Obtenemos el rol de la sesión para aplicar la seguridad visual
+    ViewData["Title"] = "Módulo de Asistencia";
     var rol = Context.Session.GetString("UsuarioRol") ?? "";
 }
 
 <div class="container-fluid mt-4">
     <h4 class="fw-bold mb-4">
-        <i class="bi bi-pencil-square text-primary"></i> Módulo de Notas
+        <i class="bi bi-calendar-check text-primary"></i> Módulo de Asistencia
     </h4>
 
-    <div class="row g-4">
-        <div class="@(rol == "Profesor" ? "col-md-8 mx-auto" : "col-md-5")">
+
+
+    <div class="row g-4 justify-content-center">
+        <div class="@(rol == "Profesor" ? "col-md-7" : "col-md-5")">
             <div class="card shadow-sm border-0 h-100 transition-hover">
                 <div class="card-body p-5 text-center d-flex flex-column align-items-center justify-content-center">
-                    <div class="icon-box mb-3">
-                        <i class="bi bi-plus-circle text-primary" style="font-size:3.5rem"></i>
-                    </div>
-                    <h5 class="fw-bold">Registrar Nota</h5>
-                    <p class="text-muted mb-4">
-                        Ingresa las calificaciones de un alumno por asignatura y periodo.
-                    </p>
+                    <i class="bi bi-plus-circle text-primary mb-3" style="font-size:3.5rem"></i>
+                    <h5 class="fw-bold">Registrar Asistencia</h5>
+                    <p class="text-muted mb-4">Marca la asistencia diaria de los estudiantes del grado.</p>
                     <a asp-action="Registrar" class="btn btn-primary w-100 py-2 shadow-sm">
                         <i class="bi bi-pencil-fill me-1"></i> Ir a registrar
                     </a>
@@ -32,13 +29,9 @@
             <div class="col-md-5">
                 <div class="card shadow-sm border-0 h-100 transition-hover">
                     <div class="card-body p-5 text-center d-flex flex-column align-items-center justify-content-center">
-                        <div class="icon-box mb-3">
-                            <i class="bi bi-search text-success" style="font-size:3.5rem"></i>
-                        </div>
-                        <h5 class="fw-bold">Consultar Notas</h5>
-                        <p class="text-muted mb-4">
-                            Revisa y filtra las notas registradas por grado y asignatura.
-                        </p>
+                        <i class="bi bi-search text-success mb-3" style="font-size:3.5rem"></i>
+                        <h5 class="fw-bold">Consultar Asistencia</h5>
+                        <p class="text-muted mb-4">Revisa y filtra los registros por fecha y grado.</p>
                         <a asp-action="Consultar" class="btn btn-success w-100 py-2 shadow-sm">
                             <i class="bi bi-eye-fill me-1"></i> Ir a consultar
                         </a>
@@ -52,7 +45,7 @@
 <style>
     .transition-hover {
         transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-        border-radius: 15px; /* Bordes un poco más redondeados para que sea pro */
+        border-radius: 15px;
     }
 
         .transition-hover:hover {
