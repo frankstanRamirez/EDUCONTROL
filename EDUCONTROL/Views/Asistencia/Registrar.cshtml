@@ -37,14 +37,16 @@
                             <td>@(i + 1)</td>
                             <td><code>@alumnos[i].NIE</code></td>
                             <td>@alumnos[i].NombreCompleto</td>
+
                             <td class="text-center">
-                                <input type="radio" name="estados" value="Presente" checked />
+                                @* Quitamos el 'checked' para que aparezca vacío *@
+                                <input type="radio" name="estado_@alumnos[i].Id" value="Presente" required />
                             </td>
                             <td class="text-center">
-                                <input type="radio" name="estados" value="Ausente" />
+                                <input type="radio" name="estado_@alumnos[i].Id" value="Ausente" required />
                             </td>
                             <td class="text-center">
-                                <input type="radio" name="estados" value="Tardanza" />
+                                <input type="radio" name="estado_@alumnos[i].Id" value="Tardanza" required />
                             </td>
                         </tr>
                     }

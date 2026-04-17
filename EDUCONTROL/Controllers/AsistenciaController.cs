@@ -29,25 +29,31 @@ namespace EduControl.Controllers
         // POST: /Asistencia/Registrar
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registrar(
-        List<int> alumnoIds, List<string> estados, string fecha)
+        public async Task<IActionResult> Registrar(List<int> alumnoIds, IFormCollection form, string fecha)
         {
-            var quien = HttpContext.Session.GetString("UsuarioNombre") ??
-           "sistema";
+            var quien = HttpContext.Session.GetString("UsuarioNombre") ?? "sistema";
             var fechaDate = DateTime.Parse(fecha);
+
             for (int i = 0; i < alumnoIds.Count; i++)
             {
+                // Buscamos el estado usando el ID específico del alumno de esa fila
+                string nombreCampo = $"estado_{alumnoIds[i]}";
+                string estadoSeleccionado = form[nombreCampo]!;
+
                 var existe = await _db.Asistencias.AnyAsync(
-                a => a.AlumnoId == alumnoIds[i]
-                && a.Fecha.Date == fechaDate.Date);
+                    a => a.AlumnoId == alumnoIds[i]
+                    && a.Fecha.Date == fechaDate.Date);
+
                 if (!existe)
+                {
                     _db.Asistencias.Add(new Asistencia
                     {
                         AlumnoId = alumnoIds[i],
                         Fecha = fechaDate,
-                        Estado = estados[i],
+                        Estado = estadoSeleccionado ?? "Presente", // Por si acaso
                         RegistradoPor = quien
                     });
+                }
             }
             await _db.SaveChangesAsync();
             TempData["OK"] = "Asistencia guardada correctamente.";

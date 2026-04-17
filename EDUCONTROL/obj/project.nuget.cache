@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VJtIj6gc//k=",
+  "dgSpecHash": "Sa3Syv2dHpQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\frank\\OneDrive\\Escritorio\\EDUCONTROL\\EDUCONTROL\\EDUCONTROL.csproj",
+  "projectFilePath": "C:\\Users\\frank\\OneDrive\\Escritorio\\PROGRAMACION 3\\EDUCONTROL\\EDUCONTROL\\EDUCONTROL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\frank\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\frank\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

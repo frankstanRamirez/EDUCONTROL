@@ -5,7 +5,6 @@
 <h4 class="mb-4 fw-bold">
     <i class="bi bi-speedometer2 text-primary"></i> Panel de Control
 </h4>
-<!-- Tarjetas: Director / Secretaria -->
 @if (rol == "Director" || rol == "Secretaria")
 {
     <div class="row g-3 mb-4">
@@ -18,6 +17,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-md-3">
             <div class="stat-card" style="background:#1F3864">
                 <i class="bi bi-person-badge-fill icon"></i>
@@ -27,24 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="stat-card" style="background:#1F3864">
-                <i class="bi bi-person-badge-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.TotalUsuarios</div>
-                    <div class="lbl">Usuarios activos</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="stat-card" style="background:#28a745">
-                <i class="bi bi-calendar-check-fill icon"></i>
-                <div>
-                    <div class="num">@ViewBag.AsistenciasHoy</div>
-                    <div class="lbl">Presentes hoy</div>
-                </div>
-            </div>
-        </div>
+
         <div class="col-md-3">
             <div class="stat-card" style="background:#fd7e14">
                 <i class="bi bi-pencil-fill icon"></i>
@@ -54,8 +37,17 @@
                 </div>
             </div>
         </div>
-    </div>
 
+        <div class="col-md-3">
+            <div class="stat-card" style="background:#28a745">
+                <i class="bi bi-calendar-check-fill icon"></i>
+                <div>
+                    <div class="num">@ViewBag.AsistenciasHoy</div>
+                    <div class="lbl">Presentes hoy</div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 
