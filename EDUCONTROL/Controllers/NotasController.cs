@@ -16,12 +16,11 @@ namespace EDUCONTROL.Controllers
             _db = db;
         }
 
-        private string? GradoActivo() =>
-            HttpContext.Session.GetString("UsuarioRol") == "Profesor"
-            ? HttpContext.Session.GetString("GradoAsignado")
-            : null;
+        // --- MÉTODOS DE AYUDA PARA SESIÓN ---
+        private string? GradoActivo() => HttpContext.Session.GetString("GradoAsignado");
+        private string? SeccionActiva() => HttpContext.Session.GetString("SeccionAsignada");
+        private string? RolUsuario() => HttpContext.Session.GetString("UsuarioRol");
 
-        // --- 1. MÉTODO INDEX AGREGADO ---
         public IActionResult Index()
         {
             return View();
@@ -31,24 +30,68 @@ namespace EDUCONTROL.Controllers
         public async Task<IActionResult> Registrar()
         {
             var grado = GradoActivo();
+            var seccion = SeccionActiva();
+            var rol = RolUsuario();
+
             var qA = _db.Alumnos.Where(a => a.Estado == "Activo");
 
-            if (grado != null) qA = qA.Where(a => a.Grado == grado);
+            // Si es profesor, filtramos por SU grado y SU sección
+            if (rol == "Profesor")
+            {
+                if (!string.IsNullOrEmpty(grado)) qA = qA.Where(a => a.Grado == grado);
+                if (!string.IsNullOrEmpty(seccion)) qA = qA.Where(a => a.Seccion == seccion);
+            }
 
             ViewBag.Alumnos = await qA.OrderBy(a => a.NombreCompleto).ToListAsync();
-            ViewBag.Asignaturas = await _db.Asignaturas
-                .Where(a => a.Activa).OrderBy(a => a.Nombre).ToListAsync();
+            ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).OrderBy(a => a.Nombre).ToListAsync();
+
             ViewBag.Grado = grado ?? "Todos";
+            ViewBag.Seccion = seccion ?? "Todas";
 
             return View();
         }
 
-        // POST: /Notas/Registrar
+        // GET: /Notas/Consultar
+        public async Task<IActionResult> Consultar(string? grado, string? seccion, int? asignaturaId)
+        {
+            var rol = RolUsuario();
+            var gradoForzado = GradoActivo();
+            var seccionForzada = SeccionActiva();
+
+            // REGLA: Si es Profe, le clavamos su grado y sección, no puede ver otros
+            if (rol == "Profesor")
+            {
+                grado = gradoForzado;
+                seccion = seccionForzada;
+            }
+
+            var q = _db.Notas.Include(n => n.Alumno).Include(n => n.Asignatura).AsQueryable();
+
+            if (!string.IsNullOrEmpty(grado))
+                q = q.Where(n => n.Alumno!.Grado == grado);
+
+            if (!string.IsNullOrEmpty(seccion))
+                q = q.Where(n => n.Alumno!.Seccion == seccion);
+
+            if (asignaturaId.HasValue)
+                q = q.Where(n => n.AsignaturaId == asignaturaId);
+
+            ViewBag.GradoFiltro = grado;
+            ViewBag.SeccionFiltro = seccion;
+            ViewBag.AsigFiltro = asignaturaId;
+            ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).ToListAsync();
+
+            // Si no tiene grado forzado es porque es Admin/Director
+            ViewBag.EsAdmin = (rol != "Profesor");
+
+            return View(await q.OrderBy(n => n.Alumno!.NombreCompleto).ToListAsync());
+        }
+
+        // POST: /Notas/Registrar (Ajustado para validación)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar(Nota n)
         {
-            // Evitar duplicado alumno + asignatura
             if (await _db.Notas.AnyAsync(x => x.AlumnoId == n.AlumnoId && x.AsignaturaId == n.AsignaturaId))
             {
                 ModelState.AddModelError("", "Ya existe una nota para este alumno en esa asignatura.");
@@ -56,9 +99,16 @@ namespace EDUCONTROL.Controllers
 
             if (!ModelState.IsValid)
             {
-                var grado = GradoActivo();
+                var rol = RolUsuario();
                 var qA = _db.Alumnos.Where(a => a.Estado == "Activo");
-                if (grado != null) qA = qA.Where(a => a.Grado == grado);
+
+                if (rol == "Profesor")
+                {
+                    var g = GradoActivo();
+                    var s = SeccionActiva();
+                    if (!string.IsNullOrEmpty(g)) qA = qA.Where(a => a.Grado == g);
+                    if (!string.IsNullOrEmpty(s)) qA = qA.Where(a => a.Seccion == s);
+                }
 
                 ViewBag.Alumnos = await qA.OrderBy(a => a.NombreCompleto).ToListAsync();
                 ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).OrderBy(a => a.Nombre).ToListAsync();
@@ -74,37 +124,5 @@ namespace EDUCONTROL.Controllers
             TempData["OK"] = "Nota registrada correctamente.";
             return RedirectToAction(nameof(Consultar));
         }
-
-        /// GET: /Notas/Consultar
-        public async Task<IActionResult> Consultar(string? grado, int? asignaturaId)
-        {
-            // --- BLOQUEO DE SEGURIDAD PARA PROFESORES ---
-            var rol = HttpContext.Session.GetString("UsuarioRol");
-            if (rol == "Profesor")
-            {
-                // Si intenta entrar a consultar, lo mandamos al Dashboard con un mensaje
-                TempData["Error"] = "No tienes permisos para acceder a la consulta general de notas.";
-                return RedirectToAction("Index", "Dashboard");
-            }
-            // --------------------------------------------
-
-            var gradoForzado = GradoActivo();
-            if (gradoForzado != null) grado = gradoForzado;
-
-            var q = _db.Notas.Include(n => n.Alumno).Include(n => n.Asignatura).AsQueryable();
-
-            if (!string.IsNullOrEmpty(grado))
-                q = q.Where(n => n.Alumno!.Grado == grado);
-
-            if (asignaturaId.HasValue)
-                q = q.Where(n => n.AsignaturaId == asignaturaId);
-
-            ViewBag.GradoFiltro = grado;
-            ViewBag.AsigFiltro = asignaturaId;
-            ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).ToListAsync();
-            ViewBag.EsAdmin = gradoForzado == null;
-
-            return View(await q.OrderBy(n => n.Alumno!.NombreCompleto).ToListAsync());
-        }
     }
-} // Se cerró correctamente el namespace
+}

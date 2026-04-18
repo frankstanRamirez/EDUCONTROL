@@ -2,16 +2,20 @@
 @{
     ViewData["Title"] = "Nuevo usuario";
 }
+
 <div class="d-flex align-items-center mb-4 gap-2">
     <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
         <i class="bi bi-arrow-left"></i>
     </a>
     <h4 class="fw-bold mb-0">Nuevo usuario</h4>
 </div>
+
 <div class="card shadow-sm" style="max-width:560px">
     <div class="card-body p-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+            @* --- Campos de Nombre, Usuario y Contraseña (Igual que antes) --- *@
             <div class="mb-3">
                 <label asp-for="NombreCompleto" class="form-label fw-semibold"></label>
                 <input asp-for="NombreCompleto" class="form-control" />
@@ -27,27 +31,42 @@
                 <input asp-for="Contrasena" type="password" class="form-control" />
                 <span asp-validation-for="Contrasena" class="text-danger"></span>
             </div>
+
             <div class="mb-3">
                 <label asp-for="Rol" class="form-label fw-semibold"></label>
-                <select asp-for="Rol" class="form-select" id="rolSel"
-                        onchange="toggleGrado()">
+                <select asp-for="Rol" class="form-select" id="rolSel" onchange="toggleAsignacion()">
                     <option value="Director">Director</option>
                     <option value="Secretaria">Secretaria</option>
                     <option value="Profesor" selected>Profesor</option>
                 </select>
             </div>
-            <div class="mb-3" id="gradoDiv">
+
+            @* --- Bloque de Grado --- *@
+            <div class="mb-3 asignacion-div" id="gradoDiv">
                 <label asp-for="GradoAsignado" class="form-label fw-semibold"></label>
                 <select asp-for="GradoAsignado" class="form-select">
                     <option value="">-- Seleccionar grado --</option>
-                    @foreach (var g in new[]{"1 grado","2 grado","3 grado",
-                                        "4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
+                    @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
                     {
                         <option value="@g">@g</option>
                     }
                 </select>
                 <span asp-validation-for="GradoAsignado" class="text-danger"></span>
             </div>
+
+            @* --- NUEVO: Bloque de Sección --- *@
+            <div class="mb-3 asignacion-div" id="seccionDiv">
+                <label class="form-label fw-semibold">Sección Asignada</label>
+                <select name="SeccionAsignada" class="form-select">
+                    <option value="">-- Seleccionar sección --</option>
+                    <option value="A">Sección A</option>
+                    <option value="B">Sección B</option>
+                    <option value="C">Sección C</option>
+                    <option value="D">Sección D</option>
+                </select>
+                @* Si agregas SeccionAsignada al modelo Usuario, puedes usar asp-for="SeccionAsignada" *@
+            </div>
+
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-save"></i> Guardar
@@ -57,14 +76,20 @@
         </form>
     </div>
 </div>
+
 @section Scripts {
     <script>
-        function toggleGrado(){
-         const r = document.getElementById('rolSel').value;
-         document.getElementById('gradoDiv').style.display =
-         r==='Profesor' ? 'block':'none';
+        function toggleAsignacion(){
+            const r = document.getElementById('rolSel').value;
+            const displayStyle = r === 'Profesor' ? 'block' : 'none';
+
+            // Oculta o muestra tanto el grado como la sección
+            document.getElementById('gradoDiv').style.display = displayStyle;
+            document.getElementById('seccionDiv').style.display = displayStyle;
         }
-        toggleGrado();
+
+        // Ejecutar al cargar la página
+        toggleAsignacion();
     </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

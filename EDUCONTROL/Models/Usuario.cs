@@ -23,7 +23,9 @@ namespace EDUCONTROL.Models
         // Solo obligatorio si Rol == "Profesor"
         [Display(Name = "Grado asignado")]
         public string? GradoAsignado { get; set; }
+        public string? SeccionAsignada { get; set; }
         public bool Activo { get; set; } = true;
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
+        
     }
 }

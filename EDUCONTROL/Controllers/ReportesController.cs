@@ -1,27 +1,34 @@
 ﻿using EDUCONTROL.Data;
 using EDUCONTROL.Filters;
+using EDUCONTROL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EduControl.Controllers
 {
-    [Sesion("Director", "Secretaria")]
+    // Quitamos la restricción fija para que el Profesor también pueda entrar
+    [Sesion]
     public class ReportesController : Controller
     {
         private readonly AppDbContext _db;
         public ReportesController(AppDbContext db) { _db = db; }
 
-        // Método auxiliar para validar la sesión
-        private bool TieneAcceso()
-        {
-            return !string.IsNullOrEmpty(HttpContext.Session.GetString("UsuarioId"));
-        }
+        // --- HELPERS PARA MANEJAR LA SESIÓN ---
+        private string? GradoActivo() => HttpContext.Session.GetString("GradoAsignado");
+        private string? SeccionActiva() => HttpContext.Session.GetString("SeccionAsignada");
+        private string? RolUsuario() => HttpContext.Session.GetString("UsuarioRol");
 
         public async Task<IActionResult> Asistencia(string? grado, string? seccion, string? fecha)
         {
-            if (!TieneAcceso()) return RedirectToAction("Login", "Account");
+            var rol = RolUsuario();
 
-            // Configuración de ViewBags para los filtros y encabezado
+            // REGLA DE ORO: Si es profesor, no le dejamos elegir, usamos sus datos de sesión
+            if (rol == "Profesor")
+            {
+                grado = GradoActivo();
+                seccion = SeccionActiva();
+            }
+
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
             ViewBag.FechaFiltro = fecha;
@@ -29,7 +36,6 @@ namespace EduControl.Controllers
             ViewBag.HoraReporte = DateTime.Now.ToString("HH:mm");
             ViewBag.Docente = HttpContext.Session.GetString("UsuarioNombre");
 
-            // Si no hay grado seleccionado, devolvemos vista con contadores en cero
             if (string.IsNullOrEmpty(grado))
             {
                 ViewBag.Detalle = new List<dynamic>();
@@ -43,14 +49,14 @@ namespace EduControl.Controllers
 
             ViewBag.FiltroAplicado = true;
 
-            // 1. Obtener Alumnos filtrados
+            // 1. Obtener Alumnos filtrados por sección
             var qAl = _db.Alumnos.Where(a => a.Estado == "Activo" && a.Grado == grado);
             if (!string.IsNullOrEmpty(seccion))
                 qAl = qAl.Where(a => a.Seccion == seccion);
 
             var alumnos = await qAl.OrderBy(a => a.NombreCompleto).ToListAsync();
 
-            // 2. Obtener Asistencias filtradas
+            // 2. Obtener Asistencias
             var qAs = _db.Asistencias.Include(a => a.Alumno).Where(a => a.Alumno!.Grado == grado);
             if (!string.IsNullOrEmpty(seccion))
                 qAs = qAs.Where(a => a.Alumno!.Seccion == seccion);
@@ -60,7 +66,6 @@ namespace EduControl.Controllers
 
             var asist = await qAs.ToListAsync();
 
-            // 3. Cruzar datos para el detalle por alumno
             ViewBag.Detalle = alumnos.Select(al => new {
                 al.NombreCompleto,
                 Asistencias = asist.Count(a => a.AlumnoId == al.Id && a.Estado == "Presente"),
@@ -68,7 +73,6 @@ namespace EduControl.Controllers
                 Tardias = asist.Count(a => a.AlumnoId == al.Id && a.Estado == "Tardanza"),
             }).ToList();
 
-            // 4. Totales generales del reporte
             ViewBag.TotalEstudiantes = alumnos.Count;
             ViewBag.TotalPresentes = asist.Count(a => a.Estado == "Presente");
             ViewBag.TotalAusentes = asist.Count(a => a.Estado == "Ausente");
@@ -79,7 +83,14 @@ namespace EduControl.Controllers
 
         public async Task<IActionResult> Notas(string? grado, string? seccion, int? asignaturaId)
         {
-            if (!TieneAcceso()) return RedirectToAction("Login", "Account");
+            var rol = RolUsuario();
+
+            // REGLA DE ORO: Si es profesor, forzamos sus datos
+            if (rol == "Profesor")
+            {
+                grado = GradoActivo();
+                seccion = SeccionActiva();
+            }
 
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
@@ -105,6 +116,7 @@ namespace EduControl.Controllers
             var qAl = _db.Alumnos.Where(a => a.Estado == "Activo" && a.Grado == grado);
             if (!string.IsNullOrEmpty(seccion))
                 qAl = qAl.Where(a => a.Seccion == seccion);
+
             var alumnos = await qAl.OrderBy(a => a.NombreCompleto).ToListAsync();
 
             var qN = _db.Notas.Include(n => n.Alumno).Include(n => n.Asignatura)
@@ -112,6 +124,7 @@ namespace EduControl.Controllers
 
             if (!string.IsNullOrEmpty(seccion))
                 qN = qN.Where(n => n.Alumno!.Seccion == seccion);
+
             if (asignaturaId.HasValue)
                 qN = qN.Where(n => n.AsignaturaId == asignaturaId);
 
