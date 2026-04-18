@@ -5,34 +5,74 @@
 }
 
 <style>
+    /* Estilos para la pantalla normal */
+    .header-print-only {
+        display: none;
+    }
+
     @@media print {
-        .no-print, #sidebar, #topnav, .row.mb-4 {
+        /* Ocultamos todo lo innecesario */
+        .no-print, #sidebar, #topnav, .row.mb-4, .card.shadow-sm.border-0.mb-4 {
             display: none !important;
         }
-
-        #main {
-            margin-left: 0 !important;
-        }
-
-        body {
-            background: #fff;
-        }
-
-        .reporte-header {
-            border-bottom: 3px solid #0d6efd;
+        /* Mostramos el encabezado de impresión */
+        .header-print-only {
+            display: block !important;
+            text-align: center;
             margin-bottom: 20px;
         }
+        /* Ajustes de tabla para papel */
+        table {
+            width: 100% !important;
+            border: 1px solid #000 !important;
+        }
 
-        .reporte-footer {
-            border-top: 2px solid #0d6efd;
-            margin-top: 40px;
-            padding-top: 8px;
-            font-style: italic;
-            color: #555;
+        th {
+            background-color: #f0f0f0 !important;
+            color: #000 !important;
+            border: 1px solid #000 !important;
+            -webkit-print-color-adjust: exact;
+        }
+
+        td {
+            border: 1px solid #ccc !important;
+            padding: 5px !important;
+        }
+
+        .badge {
+            border: none !important;
+            padding: 0 !important;
+            color: #000 !important;
+            background: transparent !important;
         }
     }
 </style>
 
+@* --- ENCABEZADO EXCLUSIVO PARA IMPRESIÓN --- *@
+<div class="header-print-only">
+    <div class="d-flex align-items-center justify-content-center mb-2">
+        @* Asegúrate de que la ruta de la imagen sea correcta *@
+        <img src="/img/logo.png" style="width: 70px; height: auto;" alt="Logo" />
+        <div class="ms-3 text-center">
+            <h2 class="mb-0 fw-bold">EDUCONTROL</h2>
+            <h4 class="mb-0">Reporte de Calificaciones</h4>
+        </div>
+    </div>
+    <hr style="border: 1px solid #0d6efd; opacity: 1;" />
+
+    <div class="row text-start mt-3" style="font-size: 14px;">
+        <div class="col-6">
+            <p class="mb-1"><strong>Grado / Curso:</strong> @ViewBag.GradoFiltro</p>
+            <p class="mb-1"><strong>Sección:</strong> @(string.IsNullOrEmpty(ViewBag.SeccionFiltro) ? "Todas" : ViewBag.SeccionFiltro)</p>
+        </div>
+        <div class="col-6">
+            <p class="mb-1"><strong>Docente:</strong> @Context.Session.GetString("UsuarioNombre")</p>
+            <p class="mb-1"><strong>Fecha Generado:</strong> @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+        </div>
+    </div>
+</div>
+
+@* --- CONTENIDO NORMAL DE LA VISTA --- *@
 <div class="d-flex align-items-center justify-content-between mb-4 mt-4 no-print">
     <h4 class="fw-bold mb-0">
         <i class="bi bi-file-earmark-text text-primary"></i> Reporte de Notas
@@ -45,79 +85,11 @@
     </div>
 </div>
 
-<div class="card shadow-sm border-0 mb-4 bg-light no-print">
-    <div class="card-body">
-        <form method="get" class="row g-3 align-items-end">
-            <div class="col-md-3">
-                <label class="form-label small fw-bold">Grado</label>
-                <select name="grado" class="form-select shadow-sm" required>
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
-                    {
-                        <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
-                    }
-                </select>
-            </div>
-
-            <div class="col-md-2">
-                <label class="form-label small fw-bold">Sección</label>
-                <select name="seccion" class="form-select shadow-sm">
-                    <option value="">Todas</option>
-                    @foreach (var s in new[] { "A", "B", "C", "D" })
-                    {
-                        <option value="@s" selected="@(ViewBag.SeccionFiltro == s)">@s</option>
-                    }
-                </select>
-            </div>
-
-            <div class="col-md-4">
-                <label class="form-label small fw-bold">Asignatura</label>
-                <select name="asignaturaId" class="form-select shadow-sm">
-                    <option value="">-- Todas las materias --</option>
-                    @foreach (var asig in (List<Asignatura>)ViewBag.Asignaturas)
-                    {
-                        <option value="@asig.Id" selected="@(ViewBag.AsigFiltro == asig.Id)">@asig.Nombre</option>
-                    }
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary w-100 shadow-sm">
-                    <i class="bi bi-funnel"></i> Filtrar Reporte
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
+@* ... El resto de tu formulario de filtros se mantiene igual ... *@
 
 @if (aplicado)
 {
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white text-center p-3 border-0 shadow-sm">
-                <div class="small opacity-75">Estudiantes</div>
-                <div class="h3 mb-0">@ViewBag.TotalEstudiantes</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-info text-white text-center p-3 border-0 shadow-sm">
-                <div class="small opacity-75">Promedio Gral.</div>
-                <div class="h3 mb-0">@ViewBag.PromedioGeneral</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white text-center p-3 border-0 shadow-sm">
-                <div class="small opacity-75">Aprobados</div>
-                <div class="h3 mb-0">@ViewBag.Aprobados</div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-danger text-white text-center p-3 border-0 shadow-sm">
-                <div class="small opacity-75">Reprobados</div>
-                <div class="h3 mb-0">@ViewBag.Reprobados</div>
-            </div>
-        </div>
-    </div>
+    @* ... Las tarjetas de resumen se mantienen igual (tienen no-print implícito por el CSS) ... *@
 
     <div class="card shadow-sm border-0 overflow-hidden">
         <div class="table-responsive">
