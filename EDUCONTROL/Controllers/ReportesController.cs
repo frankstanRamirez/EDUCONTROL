@@ -126,7 +126,15 @@ namespace EduControl.Controllers
                 qN = qN.Where(n => n.Alumno!.Seccion == seccion);
 
             if (asignaturaId.HasValue)
-                qN = qN.Where(n => n.AsignaturaId == asignaturaId);
+            {
+                var asig = await _db.Asignaturas.FindAsync(asignaturaId);
+                ViewBag.AsignaturaNombre = asig?.Nombre;
+            }
+            else
+            {
+                ViewBag.AsignaturaNombre = "Todas";
+            }
+            ;
 
             var notas = await qN.ToListAsync();
 

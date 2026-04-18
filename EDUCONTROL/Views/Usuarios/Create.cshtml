@@ -14,7 +14,7 @@
     <div class="card-body p-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
-
+            
             @* --- Campos de Nombre, Usuario y Contraseña (Igual que antes) --- *@
             <div class="mb-3">
                 <label asp-for="NombreCompleto" class="form-label fw-semibold"></label>
@@ -46,7 +46,7 @@
                 <label asp-for="GradoAsignado" class="form-label fw-semibold"></label>
                 <select asp-for="GradoAsignado" class="form-select">
                     <option value="">-- Seleccionar grado --</option>
-                    @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
+                    @foreach (var g in new[]{"1 grado","2 grado","3 grado","4 grado","5 grado","6 grado","7 grado","8 grado","9 grado"})
                     {
                         <option value="@g">@g</option>
                     }
@@ -82,12 +82,12 @@
         function toggleAsignacion(){
             const r = document.getElementById('rolSel').value;
             const displayStyle = r === 'Profesor' ? 'block' : 'none';
-
+            
             // Oculta o muestra tanto el grado como la sección
             document.getElementById('gradoDiv').style.display = displayStyle;
             document.getElementById('seccionDiv').style.display = displayStyle;
         }
-
+        
         // Ejecutar al cargar la página
         toggleAsignacion();
     </script>
