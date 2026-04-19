@@ -61,12 +61,24 @@
         </div>
     }
 
+
     @if (rol == "Profesor")
     {
-        <div class="alert alert-info border-0 shadow-sm d-flex align-items-center mb-4">
-            <i class="bi bi-info-circle-fill me-2 fs-5"></i>
-            <span>Estás viendo información de: <strong>@ViewBag.Grado</strong></span>
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <h5 class="mb-0 text-muted me-2">Estás viendo:</h5>
+
+            <span class="badge bg-secondary px-3 py-2" style="font-size: 0.9rem; border-radius: 6px;">
+                @ViewBag.Grado
+            </span>
+
+            @if (ViewBag.Seccion != null)
+            {
+                <span class="badge bg-success px-3 py-2" style="font-size: 0.9rem; border-radius: 6px;">
+                    Sección @ViewBag.Seccion
+                </span>
+            }
         </div>
+
         <div class="row g-4 mb-4">
             <div class="col-md-4">
                 <div class="stat-card shadow-sm bg-primary-grad">
@@ -79,6 +91,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     }
 

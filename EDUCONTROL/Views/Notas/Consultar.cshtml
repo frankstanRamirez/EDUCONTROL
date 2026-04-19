@@ -1,27 +1,29 @@
-﻿@model IEnumerable<EDUCONTROL.Models.Nota>
+﻿@model IEnumerable<EDUCONTROL.Models.Alumno>
 @{
     ViewData["Title"] = "Consultar Notas";
     bool esAdmin = ViewBag.EsAdmin == true;
+    int? asigId = ViewBag.AsigFiltro as int?;
+    var listaMaterias = ViewBag.Asignaturas as List<EDUCONTROL.Models.Asignatura>;
 }
 
-<div class="d-flex align-items-center justify-content-between mb-3">
-    <h2 class="mb-0">
-        <i class="bi bi-journal-check text-primary"></i> Consultar Notas
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="fw-bold mb-0">
+        <i class="bi bi-journal-check text-primary"></i> Control de Notas
     </h2>
     <a asp-action="Registrar" class="btn btn-primary shadow-sm">
-        <i class="bi bi-plus-circle"></i> + Registrar nota
+        <i class="bi bi-plus-circle me-1"></i> Registrar nueva nota
     </a>
 </div>
 
-@* --- FILTROS: Solo para Director/Secretaria --- *@
 @if (esAdmin)
 {
-    <div class="card bg-light border-0 mb-4">
+    @* --- FILTROS PARA ADMINISTRADORES --- *@
+    <div class="card bg-light border-0 mb-4 shadow-sm">
         <div class="card-body">
             <form method="get" class="row g-2 align-items-end">
                 <div class="col-md-3">
-                    <label class="small fw-bold text-muted">Grado</label>
-                    <select name="grado" class="form-select">
+                    <label class="small fw-bold text-muted text-uppercase">Grado</label>
+                    <select name="grado" class="form-select border-0 shadow-sm">
                         <option value="">-- Todos los grados --</option>
                         @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
                         {
@@ -30,8 +32,8 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label class="small fw-bold text-muted">Sección</label>
-                    <select name="seccion" class="form-select">
+                    <label class="small fw-bold text-muted text-uppercase">Sección</label>
+                    <select name="seccion" class="form-select border-0 shadow-sm">
                         <option value="">-- Todas --</option>
                         @foreach (var s in new[] { "A", "B", "C", "D" })
                         {
@@ -40,27 +42,19 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="small fw-bold text-muted">Materia / Asignatura</label>
-                    <select name="asignaturaId" class="form-select">
+                    <label class="small fw-bold text-muted text-uppercase">Materia</label>
+                    <select name="asignaturaId" class="form-select border-0 shadow-sm">
                         <option value="">-- Todas las materias --</option>
-                        @if (ViewBag.Asignaturas is List<EDUCONTROL.Models.Asignatura> listaAsig)
+                        @foreach (var asig in listaMaterias)
                         {
-                            @foreach (var asig in listaAsig)
-                            {
-                                <option value="@asig.Id" selected="@(ViewBag.AsigFiltro == asig.Id)">@asig.Nombre</option>
-                            }
+                            <option value="@asig.Id" selected="@(asigId == asig.Id)">@asig.Nombre</option>
                         }
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-funnel"></i> Filtrar
+                    <button type="submit" class="btn btn-dark w-100 shadow-sm">
+                        <i class="bi bi-search me-1"></i> Filtrar
                     </button>
-                </div>
-                <div class="col-md-1">
-                    <a asp-action="Consultar" class="btn btn-outline-secondary w-100" title="Limpiar">
-                        <i class="bi bi-x-lg"></i>
-                    </a>
                 </div>
             </form>
         </div>
@@ -68,70 +62,118 @@
 }
 else
 {
-    @* El profesor solo ve qué está consultando *@
-    <div class="alert alert-info border-0 shadow-sm d-flex align-items-center">
-        <i class="bi bi-info-circle-fill me-2 fs-5"></i>
-        <span>Consulta para: <strong>@ViewBag.GradoFiltro "@ViewBag.SeccionFiltro"</strong></span>
+    @* --- FILTRO PARA PROFESORES: Organizado y sin repeticiones --- *@
+    <div class="card border-0 shadow-sm mb-4" style="background-color: #eef2f7; border-radius: 15px;">
+        <div class="card-body p-3">
+            <form method="get" class="row g-3 align-items-center">
+                <input type="hidden" name="grado" value="@ViewBag.GradoFiltro" />
+                <input type="hidden" name="seccion" value="@ViewBag.SeccionFiltro" />
+
+                <div class="col-md-auto">
+                    <div class="bg-white px-3 py-2 rounded-pill shadow-sm border">
+                        <i class="bi bi-people-fill text-primary me-2"></i>
+                        <span class="fw-bold text-dark">@ViewBag.GradoFiltro "@ViewBag.SeccionFiltro"</span>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-filter-left text-primary"></i></span>
+                        <select name="asignaturaId" class="form-select border-start-0 shadow-sm" onchange="this.form.submit()">
+                            <option value="">-- Seleccionar Materia para organizar lista --</option>
+                            @foreach (var asig in listaMaterias)
+                            {
+                                <!option value="@asig.Id" @(asigId == asig.Id ? "selected" : "")>@asig.Nombre</!option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                @if (asigId != null)
+                {
+                    <div class="col-md-auto">
+                        <a asp-action="Consultar" asp-route-grado="@ViewBag.GradoFiltro" asp-route-seccion="@ViewBag.SeccionFiltro" class="btn btn-link text-muted btn-sm">
+                            <i class="bi bi-x-circle me-1"></i> Limpiar
+                        </a>
+                    </div>
+                }
+            </form>
+        </div>
     </div>
 }
 
-@* --- TABLA DE RESULTADOS --- *@
-<div class="card shadow-sm border-0">
+@* --- TABLA DE RESULTADOS (LISTA ESTÁTICA) --- *@
+<div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead class="table-dark">
+            <thead class="bg-dark text-white">
                 <tr>
-                    <th>Alumno</th>
-                    <th class="text-center">Grado/Sec</th>
+                    <th class="ps-4">Alumno</th>
+                    @if (esAdmin)
+                    {
+                        <th class="text-center">Grado/Sec</th>
+                    }
                     <th>Asignatura</th>
                     <th class="text-center">P1</th>
                     <th class="text-center">P2</th>
                     <th class="text-center">P3</th>
                     <th class="text-center">Promedio</th>
-                    <th class="text-center">Estado</th>
+                    <th class="text-center pe-4">Acción</th>
                 </tr>
             </thead>
             <tbody>
-                @if (Model != null)
+                @foreach (var alu in Model)
                 {
-                    @foreach (var n in Model)
-                    {
-                        <tr>
-                            <td class="fw-semibold text-dark">@(n.Alumno?.NombreCompleto ?? "N/A")</td>
-                            <td class="text-center">
-                                <span class="badge bg-light text-dark border">
-                                    @(n.Alumno?.Grado ?? "S/G") - @(n.Alumno?.Seccion ?? "S/S")
-                                </span>
-                            </td>
-                            <td>@(n.Asignatura?.Nombre ?? "N/A")</td>
-                            <td class="text-center text-muted">@(n.Periodo1?.ToString("0.0") ?? "—")</td>
-                            <td class="text-center text-muted">@(n.Periodo2?.ToString("0.0") ?? "—")</td>
-                            <td class="text-center text-muted">@(n.Periodo3?.ToString("0.0") ?? "—")</td>
-                            <td class="text-center"><strong class="fs-6">@n.Promedio.ToString("0.0")</strong></td>
-                            <td class="text-center">
-                                @if (n.Estado == "Aprobado")
-                                {
-                                    <span class="badge bg-success">
-                                        <i class="bi bi-check-circle-fill me-1"></i> @n.Estado
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-danger">
-                                        <i class="bi bi-x-circle-fill me-1"></i> @n.Estado
-                                    </span>
-                                }
-                            </td>
-                        </tr>
-                    }
-                }
+                    // Buscamos si el alumno tiene nota para la materia filtrada
+                    var nota = alu.Notas?.FirstOrDefault(n => n.AsignaturaId == asigId);
 
-                @if (Model == null || !Model.Any())
-                {
                     <tr>
-                        <td colspan="8" class="text-center py-5 text-muted">
-                            <i class="bi bi-search" style="font-size: 2rem;"></i>
-                            <p class="mt-2 mb-0">No se encontraron registros con los filtros seleccionados.</p>
+                        <td class="ps-4">
+                            <div class="fw-bold text-dark">@alu.NombreCompleto</div>
+                            <small class="text-muted">ID: @alu.Id</small>
+                        </td>
+
+                        @if (esAdmin)
+                        {
+                            <td class="text-center text-muted">@alu.Grado - @alu.Seccion</td>
+                        }
+
+                        <td>
+                            @if (asigId != null)
+                            {
+                                <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">
+                                    @listaMaterias.FirstOrDefault(a => a.Id == asigId)?.Nombre
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="text-muted small fst-italic">Seleccione materia</span>
+                            }
+                        </td>
+
+                        <td class="text-center fw-semibold">@(nota?.Periodo1?.ToString("0.0") ?? "—")</td>
+                        <td class="text-center fw-semibold">@(nota?.Periodo2?.ToString("0.0") ?? "—")</td>
+                        <td class="text-center fw-semibold">@(nota?.Periodo3?.ToString("0.0") ?? "—")</td>
+
+                        <td class="text-center">
+                            <span class="fs-6 fw-bold @(nota?.Promedio >= 6 ? "text-success" : "text-danger")">
+                                @(nota?.Promedio.ToString("0.0") ?? "0.0")
+                            </span>
+                        </td>
+
+                        <td class="text-center pe-4">
+                            @if (nota != null)
+                            {
+                                <a asp-action="Edit" asp-route-id="@nota.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                    <i class="bi bi-pencil-square me-1"></i> Editar
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="Registrar" class="btn btn-sm btn-outline-secondary rounded-pill px-3 border-dashed">
+                                    <i class="bi bi-plus me-1"></i> Nota
+                                </a>
+                            }
                         </td>
                     </tr>
                 }

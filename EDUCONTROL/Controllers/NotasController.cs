@@ -58,35 +58,35 @@ namespace EDUCONTROL.Controllers
             var gradoForzado = GradoActivo();
             var seccionForzada = SeccionActiva();
 
-            // REGLA: Si es Profe, le clavamos su grado y sección, no puede ver otros
+            // Si es profesor, bloqueamos a su grado y sección
             if (rol == "Profesor")
             {
                 grado = gradoForzado;
                 seccion = seccionForzada;
             }
 
-            var q = _db.Notas.Include(n => n.Alumno).Include(n => n.Asignatura).AsQueryable();
+            // 1. Obtenemos la lista de alumnos (Esta es la base estática)
+            var qAlumnos = _db.Alumnos
+                .Include(a => a.Notas) // Incluimos las notas para cruzarlas en la vista
+                .Where(a => a.Estado == "Activo");
 
             if (!string.IsNullOrEmpty(grado))
-                q = q.Where(n => n.Alumno!.Grado == grado);
+                qAlumnos = qAlumnos.Where(a => a.Grado == grado);
 
             if (!string.IsNullOrEmpty(seccion))
-                q = q.Where(n => n.Alumno!.Seccion == seccion);
+                qAlumnos = qAlumnos.Where(a => a.Seccion == seccion);
 
-            if (asignaturaId.HasValue)
-                q = q.Where(n => n.AsignaturaId == asignaturaId);
+            var listaAlumnos = await qAlumnos.OrderBy(a => a.NombreCompleto).ToListAsync();
 
+            // 2. Cargamos datos para los selectores y la vista
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
             ViewBag.AsigFiltro = asignaturaId;
             ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).ToListAsync();
-
-            // Si no tiene grado forzado es porque es Admin/Director
             ViewBag.EsAdmin = (rol != "Profesor");
 
-            return View(await q.OrderBy(n => n.Alumno!.NombreCompleto).ToListAsync());
+            return View(listaAlumnos);
         }
-
         // POST: /Notas/Registrar (Ajustado para validación)
         [HttpPost]
         [ValidateAntiForgeryToken]
