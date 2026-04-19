@@ -62,7 +62,7 @@
 }
 else
 {
-    @* --- FILTRO PARA PROFESORES: Organizado y sin repeticiones --- *@
+    @* --- FILTRO PARA PROFESORES --- *@
     <div class="card border-0 shadow-sm mb-4" style="background-color: #eef2f7; border-radius: 15px;">
         <div class="card-body p-3">
             <form method="get" class="row g-3 align-items-center">
@@ -80,7 +80,7 @@ else
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0"><i class="bi bi-filter-left text-primary"></i></span>
                         <select name="asignaturaId" class="form-select border-start-0 shadow-sm" onchange="this.form.submit()">
-                            <option value="">-- Seleccionar Materia para organizar lista --</option>
+                            <option value="">-- Seleccionar Materia para organizar --</option>
                             @foreach (var asig in listaMaterias)
                             {
                                 <!option value="@asig.Id" @(asigId == asig.Id ? "selected" : "")>@asig.Nombre</!option>
@@ -93,7 +93,7 @@ else
                 {
                     <div class="col-md-auto">
                         <a asp-action="Consultar" asp-route-grado="@ViewBag.GradoFiltro" asp-route-seccion="@ViewBag.SeccionFiltro" class="btn btn-link text-muted btn-sm">
-                            <i class="bi bi-x-circle me-1"></i> Limpiar
+                            <i class="bi bi-eraser me-1"></i> Limpiar
                         </a>
                     </div>
                 }
@@ -102,7 +102,6 @@ else
     </div>
 }
 
-@* --- TABLA DE RESULTADOS (LISTA ESTÁTICA) --- *@
 <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
@@ -118,13 +117,13 @@ else
                     <th class="text-center">P2</th>
                     <th class="text-center">P3</th>
                     <th class="text-center">Promedio</th>
+                    <th class="text-center">Estado</th>
                     <th class="text-center pe-4">Acción</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var alu in Model)
                 {
-                    // Buscamos si el alumno tiene nota para la materia filtrada
                     var nota = alu.Notas?.FirstOrDefault(n => n.AsignaturaId == asigId);
 
                     <tr>
@@ -151,9 +150,9 @@ else
                             }
                         </td>
 
-                        <td class="text-center fw-semibold">@(nota?.Periodo1?.ToString("0.0") ?? "—")</td>
-                        <td class="text-center fw-semibold">@(nota?.Periodo2?.ToString("0.0") ?? "—")</td>
-                        <td class="text-center fw-semibold">@(nota?.Periodo3?.ToString("0.0") ?? "—")</td>
+                        <td class="text-center">@(nota?.Periodo1?.ToString("0.0") ?? "—")</td>
+                        <td class="text-center">@(nota?.Periodo2?.ToString("0.0") ?? "—")</td>
+                        <td class="text-center">@(nota?.Periodo3?.ToString("0.0") ?? "—")</td>
 
                         <td class="text-center">
                             <span class="fs-6 fw-bold @(nota?.Promedio >= 6 ? "text-success" : "text-danger")">
@@ -161,16 +160,41 @@ else
                             </span>
                         </td>
 
+                        @* COLUMNA DE ESTADO *@
+                        <td class="text-center">
+                            @if (nota != null)
+                            {
+                                @if (nota.Promedio >= 6)
+                                {
+                                    <span class="badge bg-success shadow-sm">
+                                        <i class="bi bi-check-circle-fill me-1"></i> Aprobado
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger shadow-sm">
+                                        <i class="bi bi-x-circle-fill me-1"></i> Reprobado
+                                    </span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="badge bg-light text-muted border">
+                                    Pendiente
+                                </span>
+                            }
+                        </td>
+
                         <td class="text-center pe-4">
                             @if (nota != null)
                             {
-                                <a asp-action="Edit" asp-route-id="@nota.Id" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                <a asp-action="Edit" asp-route-id="@nota.Id" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
                                     <i class="bi bi-pencil-square me-1"></i> Editar
                                 </a>
                             }
                             else
                             {
-                                <a asp-action="Registrar" class="btn btn-sm btn-outline-secondary rounded-pill px-3 border-dashed">
+                                <a asp-action="Registrar" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
                                     <i class="bi bi-plus me-1"></i> Nota
                                 </a>
                             }

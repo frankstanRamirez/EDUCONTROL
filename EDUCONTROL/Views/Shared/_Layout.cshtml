@@ -1,7 +1,9 @@
-﻿@{
+﻿@* *@
+@{
     var rol = Context.Session.GetString("UsuarioRol") ?? "";
     var nombre = Context.Session.GetString("UsuarioNombre") ?? "Usuario";
 }
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -102,7 +104,9 @@
 
     <nav id="sidebar">
         <div class="logo-area text-center">
-            <img src="~/images/logo.png" alt="EduControl" style="height:65px; width:auto;" />
+            @* Se aplica el filtro para que el logo se vea blanco sobre el fondo oscuro *@
+            <img src="~/images/logo.png" alt="EduControl"
+                 style="height:65px; width:auto; filter: brightness(0) invert(1); opacity: 0.95;" />
         </div>
 
         <div class="mt-2 flex-grow-1">
@@ -141,10 +145,12 @@
             @if (rol == "Director" || rol == "Secretaria")
             {
                 <div class="nav-section">Reportes</div>
-                <a asp-controller="Reportes" asp-action="Asistencia" class="nav-link">
+                <a asp-controller="Reportes" asp-action="Asistencia"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Asistencia" && ViewContext.RouteData.Values["controller"]?.ToString() == "Reportes" ? "active" : "")">
                     <i class="bi bi-file-earmark-bar-graph"></i> Rep. Asistencia
                 </a>
-                <a asp-controller="Reportes" asp-action="Notas" class="nav-link">
+                <a asp-controller="Reportes" asp-action="Notas"
+                   class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Notas" && ViewContext.RouteData.Values["controller"]?.ToString() == "Reportes" ? "active" : "")">
                     <i class="bi bi-file-earmark-text"></i> Rep. Notas
                 </a>
             }

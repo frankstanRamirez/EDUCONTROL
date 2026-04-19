@@ -6,141 +6,165 @@
 }
 
 <style>
+    /* --- ESTILOS DE IMPRESIÓN (CLON DE REPORTE DE NOTAS) --- */
     @@media print {
-        .no-print, #sidebar, #topnav, .solo-pantalla {
+        .no-print, #sidebar, #topnav, .solo-pantalla, .card, .btn, form {
             display: none !important;
         }
 
         #main {
             margin-left: 0 !important;
+            padding: 0 !important;
         }
 
         body {
-            background: #fff;
+            background: #fff !important;
+            font-family: Arial, sans-serif !important;
         }
 
-        .reporte-header {
-            border-bottom: 3px solid #5cb85c;
+        .reporte-contenedor-print {
+            padding: 10mm;
+        }
+
+        .header-print {
+            text-align: center;
+            margin-bottom: 5mm;
+        }
+
+        .logo-print {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        .titulo-print {
+            font-size: 22pt;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        /* Línea verde característica del reporte de notas */
+        .linea-decorativa {
+            border-top: 3px solid #5cb85c;
             margin-bottom: 20px;
         }
 
-        .reporte-footer {
+        .info-bloque {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .info-item {
+            font-size: 12pt;
+            margin-bottom: 4px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            min-width: 120px;
+            display: inline-block;
+        }
+
+        .tabla-print {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            .tabla-print th {
+                border: 1px solid #dee2e6;
+                padding: 8px;
+                background: #f8f9fa !important;
+                color: #333;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .tabla-print td {
+                border: 1px solid #dee2e6;
+                padding: 8px;
+                text-align: center;
+            }
+
+        .nombre-estudiante {
+            text-align: left !important;
+            font-weight: bold;
+        }
+
+        .footer-print {
+            margin-top: 30px;
             border-top: 2px solid #5cb85c;
-            margin-top: 40px;
-            padding-top: 8px;
+            padding-top: 10px;
             font-style: italic;
-            color: #555;
+            color: #666;
+            font-size: 10pt;
         }
     }
 
+    /* Estilos para Pantalla */
     @@media screen {
         .solo-impresion {
             display: none !important;
         }
     }
-
-    .reporte-header {
-        border-bottom: 3px solid #5cb85c;
-        margin-bottom: 20px;
-    }
-
-    .reporte-footer {
-        border-top: 2px solid #5cb85c;
-        margin-top: 40px;
-        padding-top: 8px;
-        font-style: italic;
-        color: #555;
-    }
 </style>
 
-<div class="d-flex align-items-center justify-content-between mb-4 mt-4 no-print">
-    <h4 class="fw-bold mb-0">
-        <i class="bi bi-file-earmark-bar-graph text-primary"></i> Reporte de Asistencia
-    </h4>
-    <div class="text-end">
-        <button type="button" onclick="window.print()"
-                class="btn btn-outline-success shadow-sm @(!filtrado ? "disabled" : "")">
-            <i class="bi bi-printer"></i> Imprimir
+@* --- VISTA EN PANTALLA --- *@
+<div class="no-print p-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h3 class="fw-bold mb-0"><i class="bi bi-file-earmark-bar-graph text-primary me-2"></i>Reporte de Asistencia</h3>
+        <button type="button" onclick="window.print()" class="btn btn-outline-success shadow-sm @(!filtrado ? "disabled" : "")">
+            <i class="bi bi-printer me-2"></i>Imprimir Reporte
         </button>
     </div>
-</div>
 
-<div class="card shadow-sm border-0 mb-4 bg-light no-print">
-    <div class="card-body">
-        <form method="get" class="row g-3 align-items-end">
-            <div class="col-md-3">
-                <label class="form-label small fw-bold">Grado</label>
-                <select name="grado" class="form-select shadow-sm" required>
-                    <option value="">-- Seleccionar --</option>
-                    @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
-                    {
-                        <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label class="form-label small fw-bold">Sección</label>
-                <select name="seccion" class="form-select shadow-sm">
-                    <option value="">Todas</option>
-                    @foreach (var s in new[] { "A", "B", "C", "D" })
-                    {
-                        <option value="@s" selected="@(ViewBag.SeccionFiltro == s)">@s</option>
-                    }
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label small fw-bold">Fecha</label>
-                <input type="date" name="fecha" value="@ViewBag.FechaFiltro" class="form-control shadow-sm" />
-            </div>
-            <div class="col-md-3">
-                <button type="submit" class="btn btn-primary w-100 shadow-sm">
-                    <i class="bi bi-funnel"></i> Filtrar Reporte
-                </button>
-            </div>
-        </form>
+    @* Formulario de Filtros *@
+    <div class="card border-0 shadow-sm mb-4 bg-light">
+        <div class="card-body p-4">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold">Grado</label>
+                    <select name="grado" class="form-select" required>
+                        <option value="">-- Seleccionar --</option>
+                        @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
+                        {
+                            <!option value="@g" @(ViewBag.GradoFiltro == g ? "selected" : "")>@g</!option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold">Sección</label>
+                    <select name="seccion" class="form-select">
+                        <option value="">Todas</option>
+                        @foreach (var s in new[] { "A", "B", "C", "D" })
+                        {
+                            <!option value="@s" @(ViewBag.SeccionFiltro == s ? "selected" : "")>@s</!option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold">Fecha</label>
+                    <input type="date" name="fecha" value="@ViewBag.FechaFiltro" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100 shadow-sm fw-bold">Filtrar Reporte</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="solo-pantalla">
-    @if (!filtrado)
+    @if (filtrado)
     {
-        <div class="alert alert-info border-0 shadow-sm d-flex align-items-center">
-            <i class="bi bi-info-circle-fill me-2 fs-5"></i>
-            <span>Selecciona un grado y haz clic en <strong>Filtrar Reporte</strong> para ver los datos.</span>
-        </div>
-    }
-    else
-    {
-        <div class="card shadow-sm border-0 mb-3 p-3 bg-white">
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <small class="text-muted d-block">Grado / Curso</small>
-                    <strong class="text-dark">@ViewBag.GradoFiltro</strong>
-                </div>
-                <div class="col-md-3">
-                    <small class="text-muted d-block">Sección</small>
-                    <strong class="text-dark">@(ViewBag.SeccionFiltro ?? "Todas")</strong>
-                </div>
-                <div class="col-md-3">
-                    <small class="text-muted d-block">Fecha reporte</small>
-                    <strong class="text-dark">@ViewBag.FechaReporte</strong>
-                </div>
-                <div class="col-md-3">
-                    <small class="text-muted d-block">Docente</small>
-                    <strong class="text-dark">@ViewBag.Docente</strong>
-                </div>
-            </div>
-        </div>
 
-        <div class="card shadow-sm border-0 overflow-hidden">
-            <table class="table table-hover mb-0">
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <table class="table align-middle mb-0">
                 <thead class="table-dark">
                     <tr>
-                        <th class="ps-3">#</th>
+                        <th class="ps-4">#</th>
                         <th>Nombre del Estudiante</th>
-                        <th class="text-center text-info">Asistencias</th>
-                        <th class="text-center text-danger">Ausencias</th>
-                        <th class="text-center text-warning">Tardías</th>
+                        <th class="text-center">Asistencias</th>
+                        <th class="text-center">Ausencias</th>
+                        <th class="text-center">Tardías</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -150,8 +174,8 @@
                     @foreach (var f in detalle)
                     {
                         <tr>
-                            <td class="ps-3">@n</td>
-                            <td class="fw-semibold">@f.NombreCompleto</td>
+                            <td class="ps-4 fw-bold">@n</td>
+                            <td class="fw-bold">@f.NombreCompleto</td>
                             <td class="text-center text-success fw-bold">@f.Asistencias</td>
                             <td class="text-center text-danger fw-bold">@f.Ausencias</td>
                             <td class="text-center text-warning fw-bold">@f.Tardias</td>
@@ -161,35 +185,33 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="mt-4 d-flex flex-wrap gap-4 p-2 bg-light rounded shadow-sm">
-            <span class="fw-bold">Total Estudiantes: <span class="badge bg-secondary">@ViewBag.TotalEstudiantes</span></span>
-            <span class="text-success fw-bold">Presentes: @ViewBag.TotalPresentes</span>
-            <span class="text-danger fw-bold">Ausentes: @ViewBag.TotalAusentes</span>
-            <span class="text-warning fw-bold">Tardanzas: @ViewBag.TotalTardanzas</span>
-        </div>
     }
 </div>
 
-<div class="solo-impresion">
-    <div class="reporte-header pb-2 text-center">
-        <img src="/images/logo.png" alt="EduControl" style="height:70px;" />
-        <h4 class="fw-bold mt-2 mb-0">REPORTE DE ASISTENCIA</h4>
+@* --- VISTA DE IMPRESIÓN (IDÉNTICA A REPORTE DE NOTAS) --- *@
+<div class="solo-impresion reporte-contenedor-print">
+    <div class="header-print">
+        <img src="/images/logo.png" class="logo-print" />
+        <div class="titulo-print">REPORTE DE ASISTENCIA</div>
     </div>
-    <div class="my-4" style="line-height:1.8">
-        <p class="mb-1"><strong>Grado / Curso:</strong> @ViewBag.GradoFiltro</p>
-        <p class="mb-1"><strong>Sección:</strong> @(ViewBag.SeccionFiltro ?? "Todas")</p>
-        <p class="mb-1"><strong>Docente:</strong> @ViewBag.Docente</p>
-        <p class="mb-1"><strong>Fecha:</strong> @ViewBag.FechaReporte - @ViewBag.HoraReporte</p>
+
+    <div class="linea-decorativa"></div>
+
+    <div class="info-bloque">
+        <div class="info-item"><span class="info-label">Grado / Curso:</span> @ViewBag.GradoFiltro</div>
+        <div class="info-item"><span class="info-label">Sección:</span> @(ViewBag.SeccionFiltro ?? "A")</div>
+        <div class="info-item"><span class="info-label">Docente:</span> @ViewBag.Docente</div>
+        <div class="info-item"><span class="info-label">Fecha:</span> @ViewBag.FechaReporte - @ViewBag.HoraReporte</div>
     </div>
-    <table class="table table-bordered table-sm">
-        <thead class="table-light">
+
+    <table class="tabla-print">
+        <thead>
             <tr>
-                <th style="width:40px">Nº</th>
-                <th>Nombre</th>
-                <th class="text-center">Asistencias</th>
-                <th class="text-center">Ausencias</th>
-                <th class="text-center">Tardías</th>
+                <th style="width: 40px;">Nº</th>
+                <th style="text-align: left;">Nombre del Estudiante</th>
+                <th>Asistencias</th>
+                <th>Ausencias</th>
+                <th>Tardías</th>
             </tr>
         </thead>
         <tbody>
@@ -199,17 +221,18 @@
             @foreach (var f in detalle)
             {
                 <tr>
-                    <td class="text-center">@np</td>
-                    <td>@f.NombreCompleto</td>
-                    <td class="text-center">@f.Asistencias</td>
-                    <td class="text-center">@f.Ausencias</td>
-                    <td class="text-center">@f.Tardias</td>
+                    <td>@np</td>
+                    <td class="nombre-estudiante">@f.NombreCompleto</td>
+                    <td>@f.Asistencias</td>
+                    <td>@f.Ausencias</td>
+                    <td>@f.Tardias</td>
                 </tr>
                 np++;
             }
         </tbody>
     </table>
-    <div class="reporte-footer mt-5">
+
+    <div class="footer-print">
         Documento generado automáticamente por el sistema de control escolar.
     </div>
 </div>

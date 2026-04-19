@@ -91,8 +91,14 @@ namespace EduControl.Controllers
             var gradoForzado = GradoActivo();
             var seccionForzada = SeccionActiva();
 
+            // 1. Manejo de la fecha: Si el usuario no elige una, usamos HOY.
+            // Pero si elige una, debemos mantener esa.
+            if (string.IsNullOrEmpty(fecha))
+            {
+                fecha = DateTime.Today.ToString("yyyy-MM-dd");
+            }
+
             // --- SEGURIDAD PARA PROFESORES ---
-            // Ya no los mandamos al Dashboard, ahora los dejamos entrar pero filtrados
             if (rol == "Profesor")
             {
                 grado = gradoForzado;
@@ -101,10 +107,10 @@ namespace EduControl.Controllers
 
             var q = _db.Asistencias.Include(a => a.Alumno).AsQueryable();
 
-            if (!string.IsNullOrEmpty(fecha))
+            // 2. Aplicar filtro de fecha (Convertir string a DateTime para comparar solo la fecha)
+            if (DateTime.TryParse(fecha, out DateTime f))
             {
-                if (DateTime.TryParse(fecha, out DateTime f))
-                    q = q.Where(a => a.Fecha.Date == f.Date);
+                q = q.Where(a => a.Fecha.Date == f.Date);
             }
 
             if (!string.IsNullOrEmpty(grado))
@@ -113,10 +119,13 @@ namespace EduControl.Controllers
             if (!string.IsNullOrEmpty(seccion))
                 q = q.Where(a => a.Alumno!.Seccion == seccion);
 
-            ViewBag.FechaFiltro = fecha;
+            // 3. ENVIAR DATOS A LA VISTA (Asegúrate de que los nombres coincidan con tu .cshtml)
+            ViewBag.FechaFiltro = fecha; // Esto asegura que el input mantenga la fecha elegida
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
-            ViewBag.EsAdmin = (rol != "Profesor");
+
+            // Aquí usamos el nombre que pusiste en tu vista: esDirector = ViewBag.EsAdminOSecretaria
+            ViewBag.EsAdminOSecretaria = (rol == "Director" || rol == "Secretaria");
 
             return View(await q
                 .OrderByDescending(a => a.Fecha)
