@@ -20,7 +20,7 @@
         }
 
         .reporte-header {
-            border-bottom: 3px solid #5cb85c; /* Color azul para Notas */
+            border-bottom: 3px solid #5cb85c; 
             margin-bottom: 20px;
         }
 
@@ -109,18 +109,12 @@
     </div>
 </div>
 
+
 @* --- VISTA PARA PANTALLA --- *@
 
 <div class="solo-pantalla">
-    @if (!filtrado)
-    {
-        <div class="alert alert-info border-0 shadow-sm d-flex align-items-center">
-            <i class="bi bi-info-circle-fill me-2 fs-5"></i>
-            <span>Selecciona un grado y haz clic en <strong>Filtrar Reporte</strong> para generar el reporte.</span>
-        </div>
-    }
-    else
-    {
+   
+      
         <div class="card shadow-sm border-0 mb-3 p-3 bg-white">
             <div class="row g-3">
                 <div class="col-md-3">
@@ -173,7 +167,7 @@
                 </tbody>
             </table>
         </div>
-    }
+    
 </div>
 
 @* --- VISTA PARA IMPRESIÓN (Idéntica a Asistencia) --- *@

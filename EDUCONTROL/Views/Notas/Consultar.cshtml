@@ -10,115 +10,121 @@
     <h2 class="fw-bold mb-0">
         <i class="bi bi-journal-check text-primary"></i> Control de Notas
     </h2>
-    <a asp-action="Registrar" class="btn btn-primary shadow-sm">
+    <a asp-action="Registrar" class="btn btn-primary shadow-sm" style="border-radius: 10px;">
         <i class="bi bi-plus-circle me-1"></i> Registrar nueva nota
     </a>
 </div>
 
-@if (esAdmin)
-{
-    @* --- FILTROS PARA ADMINISTRADORES --- *@
-    <div class="card bg-light border-0 mb-4 shadow-sm">
-        <div class="card-body">
-            <form method="get" class="row g-2 align-items-end">
-                <div class="col-md-3">
-                    <label class="small fw-bold text-muted text-uppercase">Grado</label>
-                    <select name="grado" class="form-select border-0 shadow-sm">
-                        <option value="">-- Todos los grados --</option>
-                        @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
-                        {
-                            <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label class="small fw-bold text-muted text-uppercase">Sección</label>
-                    <select name="seccion" class="form-select border-0 shadow-sm">
-                        <option value="">-- Todas --</option>
-                        @foreach (var s in new[] { "A", "B", "C", "D" })
-                        {
-                            <option value="@s" selected="@(ViewBag.SeccionFiltro == s)">@s</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="small fw-bold text-muted text-uppercase">Materia</label>
-                    <select name="asignaturaId" class="form-select border-0 shadow-sm">
-                        <option value="">-- Todas las materias --</option>
-                        @foreach (var asig in listaMaterias)
-                        {
-                            <option value="@asig.Id" selected="@(asigId == asig.Id)">@asig.Nombre</option>
-                        }
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark w-100 shadow-sm">
-                        <i class="bi bi-search me-1"></i> Filtrar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-}
-else
-{
-    @* --- FILTRO PARA PROFESORES --- *@
-    <div class="card border-0 shadow-sm mb-4" style="background-color: #eef2f7; border-radius: 15px;">
-        <div class="card-body p-3">
-            <form method="get" class="row g-3 align-items-center">
-                <input type="hidden" name="grado" value="@ViewBag.GradoFiltro" />
-                <input type="hidden" name="seccion" value="@ViewBag.SeccionFiltro" />
+@* --- PANEL DE FILTROS HÍBRIDO (mismo estilo que Asistencia) --- *@
+<div class="card border-0 shadow-sm mb-4" style="background-color: #f8f9fa; border-radius: 15px;">
+    <div class="card-body p-3">
+        <form method="get" class="row g-3 align-items-end">
 
-                <div class="col-md-auto">
-                    <div class="bg-white px-3 py-2 rounded-pill shadow-sm border">
-                        <i class="bi bi-people-fill text-primary me-2"></i>
-                        <span class="fw-bold text-dark">@ViewBag.GradoFiltro "@ViewBag.SeccionFiltro"</span>
-                    </div>
-                </div>
-
-                <div class="col-md-5">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-filter-left text-primary"></i></span>
-                        <select name="asignaturaId" class="form-select border-start-0 shadow-sm" onchange="this.form.submit()">
-                            <option value="">-- Seleccionar Materia para organizar --</option>
-                            @foreach (var asig in listaMaterias)
+            @if (esAdmin)
+            {
+                @* VISTA PARA ADMIN/DIRECTOR: Selectores con estilo Píldora *@
+                <div class="col-md-3">
+                    <label class="small fw-bold text-muted d-block mb-1 text-uppercase">Grado</label>
+                    <div class="input-group bg-white shadow-sm border" style="border-radius: 25px; overflow: hidden; height: 45px;">
+                        <span class="input-group-text bg-white border-0 pe-1"><i class="bi bi-mortarboard text-primary"></i></span>
+                        <select name="grado" class="form-select border-0 fw-bold" style="box-shadow: none; font-size: 0.9rem;">
+                            <option value="">-- Todos los grados --</option>
+                            @foreach (var g in new[] { "1 grado", "2 grado", "3 grado", "4 grado", "5 grado", "6 grado", "7 grado", "8 grado", "9 grado" })
                             {
-                                <!option value="@asig.Id" @(asigId == asig.Id ? "selected" : "")>@asig.Nombre</!option>
+                                <option value="@g" selected="@(ViewBag.GradoFiltro == g)">@g</option>
                             }
                         </select>
                     </div>
                 </div>
 
-                @if (asigId != null)
-                {
-                    <div class="col-md-auto">
-                        <a asp-action="Consultar" asp-route-grado="@ViewBag.GradoFiltro" asp-route-seccion="@ViewBag.SeccionFiltro" class="btn btn-link text-muted btn-sm">
-                            <i class="bi bi-eraser me-1"></i> Limpiar
-                        </a>
+                <div class="col-md-2">
+                    <label class="small fw-bold text-muted d-block mb-1 text-uppercase">Sección</label>
+                    <div class="input-group bg-white shadow-sm border" style="border-radius: 25px; overflow: hidden; height: 45px;">
+                        <span class="input-group-text bg-white border-0 pe-1"><i class="bi bi-collection text-primary"></i></span>
+                        <select name="seccion" class="form-select border-0 fw-bold text-primary" style="box-shadow: none; font-size: 0.9rem;">
+                            <option value="">Sec</option>
+                            @foreach (var s in new[] { "A", "B", "C", "D" })
+                            {
+                                <option value="@s" selected="@(ViewBag.SeccionFiltro == s)">@s</option>
+                            }
+                        </select>
                     </div>
-                }
-            </form>
-        </div>
-    </div>
-}
+                </div>
 
+                <div class="col-md-3">
+                    <label class="small fw-bold text-muted d-block mb-1 text-uppercase">Materia</label>
+                    <div class="input-group bg-white shadow-sm border" style="border-radius: 25px; overflow: hidden; height: 45px;">
+                        <span class="input-group-text bg-white border-0 pe-1"><i class="bi bi-book text-primary"></i></span>
+                        <select name="asignaturaId" class="form-select border-0 fw-bold" style="box-shadow: none; font-size: 0.9rem;">
+                            <option value="">-- Todas las materias --</option>
+                            @foreach (var asig in listaMaterias)
+                            {
+                                <option value="@asig.Id" selected="@(asigId == asig.Id)">@asig.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @* VISTA PARA PROFESOR: Mi Sección fija + selector de materia *@
+                <div class="col-md-auto">
+                    <label class="small fw-bold text-muted d-block mb-1 text-uppercase">Mi Sección</label>
+                    <div class="bg-white d-flex align-items-center px-3 shadow-sm border" style="border-radius: 25px; height: 45px;">
+                        <i class="bi bi-people-fill text-primary me-2"></i>
+                        <span class="fw-bold text-dark">@ViewBag.GradoFiltro "@ViewBag.SeccionFiltro"</span>
+                    </div>
+                    <input type="hidden" name="grado" value="@ViewBag.GradoFiltro" />
+                    <input type="hidden" name="seccion" value="@ViewBag.SeccionFiltro" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="small fw-bold text-muted d-block mb-1 text-uppercase">Materia</label>
+                    <div class="input-group bg-white shadow-sm border" style="border-radius: 25px; overflow: hidden; height: 45px;">
+                        <span class="input-group-text bg-white border-0 pe-1"><i class="bi bi-book text-primary"></i></span>
+                        <select name="asignaturaId" class="form-select border-0 fw-bold" style="box-shadow: none; font-size: 0.9rem;" onchange="this.form.submit()">
+                            <option value="">-- Seleccionar Materia --</option>
+                            @foreach (var asig in listaMaterias)
+                            {
+                                <option value="@asig.Id" selected="@(asigId == asig.Id)">@asig.Nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+
+            @* Botones de Acción *@
+            <div class="col-md-auto ms-auto d-flex gap-2">
+                <button type="submit" class="btn btn-dark px-4 shadow-sm" style="border-radius: 12px; height: 45px;">
+                    <i class="bi bi-funnel me-1"></i> Filtrar
+                </button>
+                <a asp-action="Consultar" class="btn btn-outline-secondary shadow-sm d-flex align-items-center justify-content-center" style="border-radius: 12px; width: 45px; height: 45px;">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@* --- TABLA DE RESULTADOS --- *@
 <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="bg-dark text-white">
-                <tr>
-                    <th class="ps-4">Alumno</th>
+        <table class="table align-middle mb-0">
+            <thead style="background-color: #f8f9fa;">
+                <tr class="text-muted small">
+                    <th class="ps-4 text-uppercase">Alumno</th>
                     @if (esAdmin)
                     {
-                        <th class="text-center">Grado/Sec</th>
+                        <th class="text-center text-uppercase">Grado/Sec</th>
                     }
-                    <th>Asignatura</th>
-                    <th class="text-center">P1</th>
-                    <th class="text-center">P2</th>
-                    <th class="text-center">P3</th>
-                    <th class="text-center">Promedio</th>
-                    <th class="text-center">Estado</th>
-                    <th class="text-center pe-4">Acción</th>
+                    <th class="text-uppercase">Asignatura</th>
+                    <th class="text-center text-uppercase">P1</th>
+                    <th class="text-center text-uppercase">P2</th>
+                    <th class="text-center text-uppercase">P3</th>
+                    <th class="text-center text-uppercase">Promedio</th>
+                    <th class="text-center text-uppercase">Estado</th>
+                    <th class="text-center pe-4 text-uppercase">Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,15 +132,17 @@ else
                 {
                     var nota = alu.Notas?.FirstOrDefault(n => n.AsignaturaId == asigId);
 
-                    <tr>
+                    <tr style="border-bottom: 1px solid #f2f2f2;">
                         <td class="ps-4">
-                            <div class="fw-bold text-dark">@alu.NombreCompleto</div>
-                            <small class="text-muted">ID: @alu.Id</small>
+                            <div class="fw-bold text-dark" style="font-size: 0.95rem;">@alu.NombreCompleto</div>
+                            <div class="text-muted small" style="font-size: 0.8rem;">ID: @alu.Id</div>
                         </td>
 
                         @if (esAdmin)
                         {
-                            <td class="text-center text-muted">@alu.Grado - @alu.Seccion</td>
+                            <td class="text-center">
+                                <span class="text-muted" style="font-size: 0.9rem;">@alu.Grado - @alu.Seccion</span>
+                            </td>
                         }
 
                         <td>
@@ -160,26 +168,25 @@ else
                             </span>
                         </td>
 
-                        @* COLUMNA DE ESTADO *@
                         <td class="text-center">
                             @if (nota != null)
                             {
                                 @if (nota.Promedio >= 6)
                                 {
-                                    <span class="badge bg-success shadow-sm">
+                                    <span class="badge rounded-pill bg-success px-3 py-2" style="font-size: 0.75rem; min-width: 90px;">
                                         <i class="bi bi-check-circle-fill me-1"></i> Aprobado
                                     </span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-danger shadow-sm">
+                                    <span class="badge rounded-pill bg-danger px-3 py-2" style="font-size: 0.75rem; min-width: 90px;">
                                         <i class="bi bi-x-circle-fill me-1"></i> Reprobado
                                     </span>
                                 }
                             }
                             else
                             {
-                                <span class="badge bg-light text-muted border">
+                                <span class="badge rounded-pill bg-light text-muted border px-3 py-2" style="font-size: 0.75rem; min-width: 90px;">
                                     Pendiente
                                 </span>
                             }

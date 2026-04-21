@@ -12,7 +12,6 @@ namespace EduControl.Controllers
         private readonly AppDbContext _db;
         public AsistenciaController(AppDbContext db) { _db = db; }
 
-        // --- HELPERS DE SESIÓN ---
         private string? GradoActivo() => HttpContext.Session.GetString("GradoAsignado");
         private string? SeccionActiva() => HttpContext.Session.GetString("SeccionAsignada");
         private string? RolUsuario() => HttpContext.Session.GetString("UsuarioRol");
@@ -26,7 +25,6 @@ namespace EduControl.Controllers
             var gradoSesion = GradoActivo();
             var seccionSesion = SeccionActiva();
 
-            // REGLA: Si es Profesor, forzamos su Grado y Sección de la sesión
             if (rol == "Profesor")
             {
                 grado = gradoSesion;
@@ -42,14 +40,12 @@ namespace EduControl.Controllers
             ViewBag.Fecha = DateTime.Today.ToString("yyyy-MM-dd");
             ViewBag.Grado = grado ?? "Todos los grados";
             ViewBag.Seccion = seccion ?? "Todas";
-
-            // Permite ver filtros solo a Director o Secretaria
             ViewBag.EsAdmin = (rol == "Director" || rol == "Secretaria");
 
             return View();
         }
 
-        // POST: /Asistencia/Registrar (Se mantiene igual, ya que usa los IDs de alumnos filtrados)
+        // POST: /Asistencia/Registrar
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar(List<int> alumnoIds, IFormCollection form, string fecha)
@@ -65,7 +61,7 @@ namespace EduControl.Controllers
                 if (string.IsNullOrEmpty(estadoSeleccionado)) estadoSeleccionado = "Presente";
 
                 var existe = await _db.Asistencias.AnyAsync(
-                    a => a.AlumnoId == id && a.Fecha.Date == fechaDate.Date);
+                    a => a.AlumnoId == id && a.Fecha >= fechaDate.Date && a.Fecha < fechaDate.Date.AddDays(1));
 
                 if (!existe)
                 {
@@ -91,14 +87,11 @@ namespace EduControl.Controllers
             var gradoForzado = GradoActivo();
             var seccionForzada = SeccionActiva();
 
-            // 1. Manejo de la fecha: Si el usuario no elige una, usamos HOY.
-            // Pero si elige una, debemos mantener esa.
             if (string.IsNullOrEmpty(fecha))
             {
                 fecha = DateTime.Today.ToString("yyyy-MM-dd");
             }
 
-            // --- SEGURIDAD PARA PROFESORES ---
             if (rol == "Profesor")
             {
                 grado = gradoForzado;
@@ -107,10 +100,10 @@ namespace EduControl.Controllers
 
             var q = _db.Asistencias.Include(a => a.Alumno).AsQueryable();
 
-            // 2. Aplicar filtro de fecha (Convertir string a DateTime para comparar solo la fecha)
+            // ✅ FIX: Comparación de fecha compatible con EF Core / SQLite
             if (DateTime.TryParse(fecha, out DateTime f))
             {
-                q = q.Where(a => a.Fecha.Date == f.Date);
+                q = q.Where(a => a.Fecha >= f.Date && a.Fecha < f.Date.AddDays(1));
             }
 
             if (!string.IsNullOrEmpty(grado))
@@ -119,12 +112,9 @@ namespace EduControl.Controllers
             if (!string.IsNullOrEmpty(seccion))
                 q = q.Where(a => a.Alumno!.Seccion == seccion);
 
-            // 3. ENVIAR DATOS A LA VISTA (Asegúrate de que los nombres coincidan con tu .cshtml)
-            ViewBag.FechaFiltro = fecha; // Esto asegura que el input mantenga la fecha elegida
+            ViewBag.FechaFiltro = fecha;
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
-
-            // Aquí usamos el nombre que pusiste en tu vista: esDirector = ViewBag.EsAdminOSecretaria
             ViewBag.EsAdminOSecretaria = (rol == "Director" || rol == "Secretaria");
 
             return View(await q
