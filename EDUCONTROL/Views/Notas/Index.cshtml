@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Módulo de Notas";
-    // Obtenemos el rol de la sesión para aplicar la seguridad visual
+    
     var rol = Context.Session.GetString("UsuarioRol") ?? "";
 }
 
@@ -9,8 +9,8 @@
         <i class="bi bi-pencil-square text-primary"></i> Módulo de Notas
     </h4>
 
-    <div class="row g-4">
-        <div class="@(rol == "Profesor" ? "col-md-8 mx-auto" : "col-md-5")">
+    <div class="row g-4 justify-content-center">
+        <div class="@(rol == "Profesor" ? "col-md-5" : "col-md-5")">
             <div class="card shadow-sm border-0 h-100 transition-hover">
                 <div class="card-body p-5 text-center d-flex flex-column align-items-center justify-content-center">
                     <div class="icon-box mb-3">
@@ -27,11 +27,10 @@
             </div>
         </div>
 
-        @if (rol != "Profesor")
-        {
-            <div class="col-md-5">
-                <div class="card shadow-sm border-0 h-100 transition-hover">
-                    <div class="card-body p-5 text-center d-flex flex-column align-items-center justify-content-center">
+       
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 h-100 transition-hover">
+                <div class="card-body p-5 text-center d-flex flex-column align-items-center justify-content-center">
                         <div class="icon-box mb-3">
                             <i class="bi bi-search text-success" style="font-size:3.5rem"></i>
                         </div>
@@ -45,14 +44,14 @@
                     </div>
                 </div>
             </div>
-        }
+        
     </div>
 </div>
 
 <style>
     .transition-hover {
         transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-        border-radius: 15px; /* Bordes un poco más redondeados para que sea pro */
+        border-radius: 15px;
     }
 
         .transition-hover:hover {
