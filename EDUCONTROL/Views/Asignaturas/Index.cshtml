@@ -3,21 +3,13 @@
     ViewData["Title"] = "Asignaturas";
 }
 
-@if (TempData["OK"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show">
-        <i class="bi bi-check-circle me-1"></i> @TempData["OK"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-
 @* ── Encabezado ── *@
 <div class="d-flex align-items-center justify-content-between mb-4">
     <h2 class="fw-bold mb-0">
         <i class="bi bi-journal-bookmark text-primary"></i> Asignaturas
     </h2>
     <a asp-action="Create" class="btn btn-primary px-4 shadow-sm" style="border-radius: 12px; height: 45px;">
-        <i class="bi bi-plus-lg me-1"></i> + Nueva asignatura
+        <i class="bi bi-plus-lg me-1"></i> Nueva asignatura
     </a>
 </div>
 
