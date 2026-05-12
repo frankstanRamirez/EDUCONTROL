@@ -11,118 +11,122 @@ namespace EDUCONTROL.Controllers
     {
         private readonly AppDbContext _db;
 
-        public NotasController(AppDbContext db)
-        {
-            _db = db;
-        }
+        public NotasController(AppDbContext db) { _db = db; }
 
-        // --- MÉTODOS DE AYUDA PARA SESIÓN ---
         private string? GradoActivo() => HttpContext.Session.GetString("GradoAsignado");
         private string? SeccionActiva() => HttpContext.Session.GetString("SeccionAsignada");
         private string? RolUsuario() => HttpContext.Session.GetString("UsuarioRol");
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => RedirectToAction(nameof(Consultar));
 
         // GET: /Notas/Registrar
-        public async Task<IActionResult> Registrar()
+        public async Task<IActionResult> Registrar(int? alumnoId, int? asignaturaId)
         {
-            var grado = GradoActivo();
-            var seccion = SeccionActiva();
-            var rol = RolUsuario();
+            var modelo = new Nota();
+            ViewBag.EsEdicion = false;
 
-            var qA = _db.Alumnos.Where(a => a.Estado == "Activo");
-
-            // Si es profesor, filtramos por SU grado y SU sección
-            if (rol == "Profesor")
+            if (alumnoId.HasValue && asignaturaId.HasValue)
             {
-                if (!string.IsNullOrEmpty(grado)) qA = qA.Where(a => a.Grado == grado);
-                if (!string.IsNullOrEmpty(seccion)) qA = qA.Where(a => a.Seccion == seccion);
+                var notaExistente = await _db.Notas
+                    .FirstOrDefaultAsync(n => n.AlumnoId == alumnoId && n.AsignaturaId == asignaturaId);
+
+                if (notaExistente != null)
+                {
+                    modelo = notaExistente;
+                    ViewBag.EsEdicion = (notaExistente.Periodo1 != null ||
+                                         notaExistente.Periodo2 != null ||
+                                         notaExistente.Periodo3 != null);
+                }
+                else
+                {
+                    modelo.AlumnoId = alumnoId.Value;
+                    modelo.AsignaturaId = asignaturaId.Value;
+                }
             }
 
-            ViewBag.Alumnos = await qA.OrderBy(a => a.NombreCompleto).ToListAsync();
-            ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).OrderBy(a => a.Nombre).ToListAsync();
+            // Carga el nombre del alumno si viene desde Consultar
+            if (alumnoId.HasValue)
+            {
+                var alumno = await _db.Alumnos.FindAsync(alumnoId.Value);
+                ViewBag.AlumnoNombre = alumno != null
+                    ? $"{alumno.NombreCompleto} ({alumno.Grado})"
+                    : null;
+            }
 
-            ViewBag.Grado = grado ?? "Todos";
-            ViewBag.Seccion = seccion ?? "Todas";
+            // ✅ CORRECCIÓN: filtrar alumnos por grado/sección del profesor
+            var rol = RolUsuario();
+            IQueryable<Alumno> queryAlumnos = _db.Alumnos.Where(a => a.Estado == "Activo");
 
-            return View();
+            if (rol == "Profesor")
+            {
+                var grado = GradoActivo();
+                var seccion = SeccionActiva();
+                if (!string.IsNullOrEmpty(grado)) queryAlumnos = queryAlumnos.Where(a => a.Grado == grado);
+                if (!string.IsNullOrEmpty(seccion)) queryAlumnos = queryAlumnos.Where(a => a.Seccion == seccion);
+            }
+
+            ViewBag.Alumnos = await queryAlumnos.OrderBy(a => a.NombreCompleto).ToListAsync();
+            ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).ToListAsync();
+
+            return View(modelo);
+        }
+
+        // POST: /Notas/Registrar
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Registrar(Nota n)
+        {
+            var notaDb = await _db.Notas
+                .FirstOrDefaultAsync(x => x.AlumnoId == n.AlumnoId && x.AsignaturaId == n.AsignaturaId);
+
+            if (notaDb != null)
+            {
+                if (n.Periodo1.HasValue) notaDb.Periodo1 = n.Periodo1;
+                if (n.Periodo2.HasValue) notaDb.Periodo2 = n.Periodo2;
+                if (n.Periodo3.HasValue) notaDb.Periodo3 = n.Periodo3;
+
+                notaDb.RegistradoPor = HttpContext.Session.GetString("UsuarioNombre") ?? "sistema";
+                notaDb.FechaRegistro = DateTime.Now;
+
+                _db.Update(notaDb);
+                TempData["OK"] = "Cambios guardados con éxito.";
+            }
+            else
+            {
+                n.RegistradoPor = HttpContext.Session.GetString("UsuarioNombre") ?? "sistema";
+                n.FechaRegistro = DateTime.Now;
+                _db.Add(n);
+                TempData["OK"] = "Nota registrada correctamente.";
+            }
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Consultar), new { asignaturaId = n.AsignaturaId });
         }
 
         // GET: /Notas/Consultar
         public async Task<IActionResult> Consultar(string? grado, string? seccion, int? asignaturaId)
         {
             var rol = RolUsuario();
-            var gradoForzado = GradoActivo();
-            var seccionForzada = SeccionActiva();
-
-            // Si es profesor, bloqueamos a su grado y sección
             if (rol == "Profesor")
             {
-                grado = gradoForzado;
-                seccion = seccionForzada;
+                grado = GradoActivo();
+                seccion = SeccionActiva();
             }
 
-            // 1. Obtenemos la lista de alumnos (Esta es la base estática)
             var qAlumnos = _db.Alumnos
-                .Include(a => a.Notas) // Incluimos las notas para cruzarlas en la vista
+                .Include(a => a.Notas)
                 .Where(a => a.Estado == "Activo");
 
-            if (!string.IsNullOrEmpty(grado))
-                qAlumnos = qAlumnos.Where(a => a.Grado == grado);
+            if (!string.IsNullOrEmpty(grado)) qAlumnos = qAlumnos.Where(a => a.Grado == grado);
+            if (!string.IsNullOrEmpty(seccion)) qAlumnos = qAlumnos.Where(a => a.Seccion == seccion);
 
-            if (!string.IsNullOrEmpty(seccion))
-                qAlumnos = qAlumnos.Where(a => a.Seccion == seccion);
-
-            var listaAlumnos = await qAlumnos.OrderBy(a => a.NombreCompleto).ToListAsync();
-
-            // 2. Cargamos datos para los selectores y la vista
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
             ViewBag.AsigFiltro = asignaturaId;
             ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).ToListAsync();
             ViewBag.EsAdmin = (rol != "Profesor");
 
-            return View(listaAlumnos);
-        }
-        // POST: /Notas/Registrar (Ajustado para validación)
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registrar(Nota n)
-        {
-            if (await _db.Notas.AnyAsync(x => x.AlumnoId == n.AlumnoId && x.AsignaturaId == n.AsignaturaId))
-            {
-                ModelState.AddModelError("", "Ya existe una nota para este alumno en esa asignatura.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                var rol = RolUsuario();
-                var qA = _db.Alumnos.Where(a => a.Estado == "Activo");
-
-                if (rol == "Profesor")
-                {
-                    var g = GradoActivo();
-                    var s = SeccionActiva();
-                    if (!string.IsNullOrEmpty(g)) qA = qA.Where(a => a.Grado == g);
-                    if (!string.IsNullOrEmpty(s)) qA = qA.Where(a => a.Seccion == s);
-                }
-
-                ViewBag.Alumnos = await qA.OrderBy(a => a.NombreCompleto).ToListAsync();
-                ViewBag.Asignaturas = await _db.Asignaturas.Where(a => a.Activa).OrderBy(a => a.Nombre).ToListAsync();
-                return View(n);
-            }
-
-            n.RegistradoPor = HttpContext.Session.GetString("UsuarioNombre") ?? "sistema";
-            n.FechaRegistro = DateTime.Now;
-
-            _db.Add(n);
-            await _db.SaveChangesAsync();
-
-            TempData["OK"] = "Nota registrada correctamente.";
-            return RedirectToAction(nameof(Consultar));
+            return View(await qAlumnos.OrderBy(a => a.NombreCompleto).ToListAsync());
         }
     }
 }

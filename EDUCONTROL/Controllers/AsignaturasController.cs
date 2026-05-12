@@ -14,7 +14,7 @@ namespace EDUCONTROL.Controllers
 
         // GET: /Asignaturas
         public async Task<IActionResult> Index()
-            => View(await _db.Asignaturas.OrderBy(a => a.Nombre).ToListAsync());
+     => View(await _db.Asignaturas.OrderBy(a => a.Nombre).ToListAsync());
 
         // GET: /Asignaturas/Create
         public IActionResult Create() => View();

@@ -4,83 +4,196 @@
     ViewData["Title"] = "Registrar Nota";
     var asignaturas = ViewBag.Asignaturas as List<EDUCONTROL.Models.Asignatura>;
     var alumnos = ViewBag.Alumnos as List<EDUCONTROL.Models.Alumno>;
+    bool esEdicion = ViewBag.EsEdicion == true;
+    string? alumnoNombrePreCargado = ViewBag.AlumnoNombre as string;
+    bool alumnoPreCargado = !string.IsNullOrEmpty(alumnoNombrePreCargado);
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
     <div class="d-flex align-items-center gap-2">
-        <a asp-action="Index" asp-controller="Dashboard" class="btn btn-outline-secondary btn-sm shadow-sm">
+        <a asp-action="Consultar" asp-controller="Notas"
+           class="btn btn-outline-secondary btn-sm shadow-sm" style="border-radius:10px;">
             <i class="bi bi-arrow-left"></i>
         </a>
-        <h4 class="fw-bold mb-0">Registrar Nota</h4>
+        <h4 class="fw-bold mb-0">@(esEdicion ? "Editar Nota" : "Registrar Nota")</h4>
+        @if (esEdicion)
+        {
+            <span class="badge bg-warning text-dark">Modo Edición</span>
+        }
     </div>
-
-    <a asp-action="Consultar"
-       asp-controller="Notas"
+    <a asp-action="Consultar" asp-controller="Notas"
        asp-route-grado="@Context.Session.GetString("GradoAsignado")"
        asp-route-seccion="@Context.Session.GetString("SeccionAsignada")"
-       class="btn btn-outline-secondary shadow-sm">
+       class="btn btn-outline-secondary shadow-sm" style="border-radius:10px;">
         <i class="bi bi-list-task me-2"></i> Ver Historial
     </a>
 </div>
 
-<div class="card shadow-sm border-0" style="max-width:620px; border-radius: 12px;">
+<div class="card shadow-sm border-0" style="max-width:620px; border-radius:12px;">
     <div class="card-body p-4">
-        <form asp-action="Registrar" method="post">
+        <form asp-action="Registrar" method="post" id="formNota">
             @Html.AntiForgeryToken()
 
+            @* ── Alumno ── *@
             <div class="mb-3 position-relative">
-                <label class="form-label fw-semibold">Buscar alumno</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                    <input type="text" id="buscadorAlumno" class="form-control border-start-0 shadow-sm"
-                           placeholder="Escribe nombre o apellido..." autocomplete="off" />
-                </div>
-                <div id="listaAlumnos" class="list-group mt-1 shadow"
-                     style="max-height:200px; overflow-y:auto; display:none; z-index:1000; position:absolute; width: 100%;"></div>
+                <label class="form-label fw-semibold">Alumno</label>
 
-                <input type="hidden" name="AlumnoId" id="alumnoIdHidden" value="@Model?.AlumnoId" />
-                <div id="alumnoSeleccionado" class="mt-2 text-success fw-bold"></div>
+                @if (alumnoPreCargado)
+                {
+                    @* ✅ Viene desde Consultar: muestra el nombre directo sin buscador *@
+                    <div class="d-flex align-items-center gap-2 p-2 bg-light border rounded"
+                         style="border-radius:10px!important;">
+                        <i class="bi bi-person-check-fill text-success fs-5"></i>
+                        <span class="fw-semibold text-dark">@alumnoNombrePreCargado</span>
+                    </div>
+                    <input type="hidden" name="AlumnoId" value="@Model!.AlumnoId" />
+                }
+                else
+                {
+                    @* Viene directo: muestra buscador *@
+                    <input type="text" id="buscadorAlumno" class="form-control shadow-sm"
+                           placeholder="Escribe nombre..." autocomplete="off" />
+                    <input type="hidden" name="AlumnoId" id="alumnoIdHidden" value="@Model?.AlumnoId" />
+                    <small id="alumnoSeleccionado" class="text-success fw-semibold mt-1 d-block"></small>
+                    <div id="listaAlumnos" class="list-group mt-1 shadow"
+                         style="display:none; position:absolute; width:100%; z-index:1000;"></div>
+                }
             </div>
 
+            @* ── Asignatura ── *@
             <div class="mb-3">
                 <label class="form-label fw-semibold">Asignatura</label>
-                <select name="AsignaturaId" class="form-select shadow-sm" required>
-                    <option value="">-- Seleccionar asignatura --</option>
-                    @if (asignaturas != null)
+                <select name="AsignaturaId" id="asignaturaSelect" class="form-select shadow-sm" required
+                        @(esEdicion || alumnoPreCargado ? "disabled" : "")>
+                    <option value="">Seleccionar</option>
+                    @foreach (var s in asignaturas!)
                     {
-                        @foreach (var s in asignaturas)
-                        {
-                            <option value="@s.Id">@s.Nombre</option>
-                        }
+                        <option value="@s.Id"
+                                selected="@(Model!.AsignaturaId == s.Id ? "selected" : null)">
+                            @s.Nombre
+                        </option>
                     }
                 </select>
+                @* disabled no envía el valor al POST, hidden lo garantiza *@
+                @if (esEdicion || alumnoPreCargado)
+                {
+                    <input type="hidden" name="AsignaturaId" value="@Model!.AsignaturaId" />
+                }
             </div>
 
-            <div class="mb-3">
-                <label class="form-label fw-semibold">Periodo a registrar</label>
-                <select id="periodoSelector" class="form-select shadow-sm" onchange="mostrarPeriodo()">
-                    <option value="1">Periodo 1</option>
-                    <option value="2">Periodo 2</option>
-                    <option value="3">Periodo 3</option>
-                </select>
-            </div>
+            <hr />
 
-            <div class="mb-4">
-                <label id="labelNota" class="form-label fw-semibold">Nota — Periodo 1</label>
-                <input type="number" id="notaInput" step="0.1" min="0" max="10"
-                       class="form-control shadow-sm" style="max-width:180px"
-                       placeholder="0.0 — 10.0" required />
+            @* ── MODO EDICIÓN ── *@
+            @if (esEdicion)
+            {
+               
+                <div class="row">
+                    @* Periodo 1 *@
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-semibold">Periodo 1</label>
+                        @if (Model!.Periodo1 != null)
+                        {
+                            <input type="number" name="Periodo1" value="@Model.Periodo1"
+                                   step="0.1" min="0" max="10" class="form-control shadow-sm" />
+                        }
+                        else
+                        {
+                            <input type="number" class="form-control bg-light text-muted"
+                                   readonly placeholder="—" />
+                            <input type="hidden" name="Periodo1" value="" />
+                            <span class="text-danger" style="font-size:0.72rem;">
+                                <i class="bi bi-lock-fill"></i> No disponible en edición
+                            </span>
+                        }
+                    </div>
+                    @* Periodo 2 *@
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-semibold">Periodo 2</label>
+                        @if (Model!.Periodo2 != null)
+                        {
+                            <input type="number" name="Periodo2" value="@Model.Periodo2"
+                                   step="0.1" min="0" max="10" class="form-control shadow-sm" />
+                        }
+                        else
+                        {
+                            <input type="number" class="form-control bg-light text-muted"
+                                   readonly placeholder="—" />
+                            <input type="hidden" name="Periodo2" value="" />
+                            <span class="text-danger" style="font-size:0.72rem;">
+                                <i class="bi bi-lock-fill"></i> No disponible en edición
+                            </span>
+                        }
+                    </div>
+                    @* Periodo 3 *@
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label fw-semibold">Periodo 3</label>
+                        @if (Model!.Periodo3 != null)
+                        {
+                            <input type="number" name="Periodo3" value="@Model.Periodo3"
+                                   step="0.1" min="0" max="10" class="form-control shadow-sm" />
+                        }
+                        else
+                        {
+                            <input type="number" class="form-control bg-light text-muted"
+                                   readonly placeholder="—" />
+                            <input type="hidden" name="Periodo3" value="" />
+                            <span class="text-danger" style="font-size:0.72rem;">
+                                <i class="bi bi-lock-fill"></i> No disponible en edición
+                            </span>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                @* ── MODO REGISTRO ── *@
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Periodo a registrar</label>
+                    <select id="periodoSelector" class="form-select shadow-sm" onchange="mostrarPeriodo()">
+                        <option value="">Seleccionar periodo</option>
+                        @if (Model!.Periodo1 != null)
+                        {
+                            <option value="1" disabled>Periodo 1 (Ya registrado)</option>
+                        }
+                        else
+                        {
+                            <option value="1">Periodo 1</option>
+                        }
+                        @if (Model!.Periodo2 != null)
+                        {
+                            <option value="2" disabled>Periodo 2 (Ya registrado)</option>
+                        }
+                        else
+                        {
+                            <option value="2">Periodo 2</option>
+                        }
+                        @if (Model!.Periodo3 != null)
+                        {
+                            <option value="3" disabled>Periodo 3 (Ya registrado)</option>
+                        }
+                        else
+                        {
+                            <option value="3">Periodo 3</option>
+                        }
+                    </select>
+                </div>
 
-                <input type="hidden" name="Periodo1" id="p1" value="" />
-                <input type="hidden" name="Periodo2" id="p2" value="" />
-                <input type="hidden" name="Periodo3" id="p3" value="" />
-            </div>
+                <div class="mb-4">
+                    <label id="labelNota" class="form-label fw-semibold">Nota</label>
+                    <input type="number" id="notaInput" step="0.1" min="0" max="10"
+                           class="form-control shadow-sm" style="max-width:180px" placeholder="0.0" />
+                    <input type="hidden" name="Periodo1" id="p1" value="@Model!.Periodo1" />
+                    <input type="hidden" name="Periodo2" id="p2" value="@Model!.Periodo2" />
+                    <input type="hidden" name="Periodo3" id="p3" value="@Model!.Periodo3" />
+                </div>
+            }
 
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary px-4 shadow-sm" onclick="prepararPeriodos()">
-                    <i class="bi bi-save me-2"></i> Guardar nota
+                <button type="button" class="btn btn-primary px-4 shadow-sm"
+                        style="border-radius:10px;" onclick="enviarFormulario()">
+                    <i class="bi bi-save me-1"></i> Guardar Cambios
                 </button>
-                <a asp-action="Index" asp-controller="Dashboard" class="btn btn-light border px-4 shadow-sm">
+                <a asp-action="Consultar" class="btn btn-light border" style="border-radius:10px;">
                     Cancelar
                 </a>
             </div>
@@ -90,63 +203,72 @@
 
 @section Scripts {
     <script>
-        const alumnos = [
-            @if (alumnos != null)
-            {
-                    @foreach (var a in alumnos)
-                    {
-                            @Html.Raw($"{{ id: {a.Id}, nombre: '{a.NombreCompleto.Replace("'", "\\'")} ({a.Grado})' }},")
-                    }
-            }
-        ];
+        // ── Buscador (solo si NO hay alumno precargado) ──
+        const buscadorEl = document.getElementById('buscadorAlumno');
+        if (buscadorEl) {
+            const alumnosData = [
+                @if (alumnos != null)
+                {
+                        @foreach (var a in alumnos)
+                        {
+                                @Html.Raw($"{{ id: {a.Id}, nombre: '{a.NombreCompleto.Replace("'", "\\'")} ({a.Grado})' }},")
+                        }
+                }
+            ];
 
-        const buscador = document.getElementById('buscadorAlumno');
-        const lista = document.getElementById('listaAlumnos');
-        const hiddenId = document.getElementById('alumnoIdHidden');
-        const selecLabel = document.getElementById('alumnoSeleccionado');
+            const lista = document.getElementById('listaAlumnos');
+            const hiddenId = document.getElementById('alumnoIdHidden');
+            const selecLabel = document.getElementById('alumnoSeleccionado');
 
-        buscador.addEventListener('input', function () {
-            const q = this.value.toLowerCase().trim();
-            lista.innerHTML = '';
-            if (q.length < 2) { lista.style.display = 'none'; return; }
+            buscadorEl.addEventListener('input', function () {
+                const q = this.value.toLowerCase().trim();
+                lista.innerHTML = '';
+                if (q.length < 2) { lista.style.display = 'none'; return; }
 
-            const resultados = alumnos.filter(a => a.nombre.toLowerCase().includes(q));
-            if (resultados.length === 0) {
-                lista.style.display = 'none'; return;
-            }
+                const resultados = alumnosData.filter(a => a.nombre.toLowerCase().includes(q));
+                if (!resultados.length) { lista.style.display = 'none'; return; }
 
-            resultados.forEach(a => {
-                const item = document.createElement('button');
-                item.type = 'button';
-                item.className = 'list-group-item list-group-item-action';
-                item.textContent = a.nombre;
-                item.onclick = () => {
-                    hiddenId.value = a.id;
-                    buscador.value = a.nombre;
-                    selecLabel.textContent = '✔ ' + a.nombre;
-                    lista.style.display = 'none';
-                };
-                lista.appendChild(item);
+                resultados.forEach(a => {
+                    const item = document.createElement('button');
+                    item.type = 'button';
+                    item.className = 'list-group-item list-group-item-action';
+                    item.textContent = a.nombre;
+                    item.onclick = () => {
+                        hiddenId.value = a.id;
+                        buscadorEl.value = a.nombre;
+                        selecLabel.textContent = '✔ ' + a.nombre;
+                        lista.style.display = 'none';
+                    };
+                    lista.appendChild(item);
+                });
+                lista.style.display = 'block';
             });
-            lista.style.display = 'block';
-        });
 
-        document.addEventListener('click', e => {
-            if (!buscador.contains(e.target)) lista.style.display = 'none';
-        });
+            document.addEventListener('click', e => {
+                if (!buscadorEl.contains(e.target)) lista.style.display = 'none';
+            });
+        }
 
         function mostrarPeriodo() {
             const p = document.getElementById('periodoSelector').value;
-            document.getElementById('labelNota').textContent = 'Nota — Periodo ' + p;
-            document.getElementById('notaInput').value = '';
+            if (p) document.getElementById('labelNota').textContent = 'Nota — Periodo ' + p;
         }
 
-        function prepararPeriodos() {
-            const p = document.getElementById('periodoSelector').value;
-            const nota = document.getElementById('notaInput').value;
-            document.getElementById('p1').value = p === '1' ? nota : '';
-            document.getElementById('p2').value = p === '2' ? nota : '';
-            document.getElementById('p3').value = p === '3' ? nota : '';
+        function enviarFormulario() {
+            const selector = document.getElementById('periodoSelector');
+            if (selector) {
+                const p = selector.value;
+                const nota = document.getElementById('notaInput').value;
+                if (!p) { alert('Selecciona un periodo.'); return; }
+                if (nota === '') { alert('Ingresa la nota.'); return; }
+                if (parseFloat(nota) < 0 || parseFloat(nota) > 10) {
+                    alert('La nota debe estar entre 0 y 10.'); return;
+                }
+                if (p === '1') document.getElementById('p1').value = nota;
+                if (p === '2') document.getElementById('p2').value = nota;
+                if (p === '3') document.getElementById('p3').value = nota;
+            }
+            document.getElementById('formNota').submit();
         }
     </script>
 }

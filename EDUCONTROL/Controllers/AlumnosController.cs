@@ -26,6 +26,8 @@ namespace EduControl.Controllers
             ViewBag.Buscar = buscar;
             ViewBag.GradoFiltro = grado;
             ViewBag.SeccionFiltro = seccion;
+            ViewBag.Total = await _db.Alumnos.CountAsync();
+            ViewBag.Activos = await _db.Alumnos.CountAsync(a => a.Estado == "Activo");
 
             return View(await q.OrderBy(a => a.NombreCompleto).ToListAsync());
         }

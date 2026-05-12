@@ -3,55 +3,90 @@
     ViewData["Title"] = "Asignaturas";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold mb-0">
+@if (TempData["OK"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle me-1"></i> @TempData["OK"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@* ── Encabezado ── *@
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="fw-bold mb-0">
         <i class="bi bi-journal-bookmark text-primary"></i> Asignaturas
-    </h4>
-    <a asp-action="Create" class="btn btn-primary">
-        <i class="bi bi-plus-lg"></i> Nueva asignatura
+    </h2>
+    <a asp-action="Create" class="btn btn-primary px-4 shadow-sm" style="border-radius: 12px; height: 45px;">
+        <i class="bi bi-plus-lg me-1"></i> + Nueva asignatura
     </a>
 </div>
 
-<div class="card shadow-sm">
-    <table class="table table-hover mb-0">
-        <thead class="table-dark">
-            <tr>
-                <th>Nombre</th>
-                <th>Grado</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var a in Model)
-            {
-                <tr>
-                    <td>@a.Nombre</td>
-                    <td>@(a.Grado ?? "Todos los grados")</td>
-                    <td>
-                        <span class="badge @(a.Activa ? "bg-success" : "bg-secondary")">
-                            @(a.Activa ? "Activa" : "Inactiva")
-                        </span>
-                    </td>
-                    <td>
-                        <form asp-action="ToggleActiva" asp-route-id="@a.Id" method="post">
-                            @Html.AntiForgeryToken()
-                            <button type="submit"
-                                    class="btn btn-sm @(a.Activa ? "btn-outline-danger" : "btn-outline-success")">
-                                @(a.Activa ? "Desactivar" : "Activar")
-                            </button>
-                        </form>
-                    </td>
+@* ── Tarjetas resumen (CENTRADA como en Alumnos) ── *@
+<div class="row mb-4 justify-content-center">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 15px; background-color: #f8f9fa;">
+            <small class="text-muted fw-bold text-uppercase">Total asignaturas</small>
+            <div class="fs-2 fw-bold mt-1">@Model.Count()</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="border-radius: 15px; background-color: #f8f9fa;">
+            <small class="text-muted fw-bold text-uppercase">Activas</small>
+            <div class="fs-2 fw-bold text-success mt-1">@Model.Count(a => a.Activa)</div>
+        </div>
+    </div>
+</div>
+
+@* ── Tabla ── *@
+<div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden;">
+    <div class="table-responsive">
+        <table class="table align-middle mb-0">
+            <thead style="background-color: #f8f9fa;">
+                <tr class="text-muted small">
+                    <th class="ps-4 text-uppercase">Nombre</th>
+                    <th class="text-uppercase">Grado</th>
+                    <th class="text-uppercase">Estado</th>
+                    <th class="text-uppercase text-end pe-4">Acciones</th>
                 </tr>
-            }
-            @if (!Model.Any())
-            {
-                <tr>
-                    <td colspan="4" class="text-center text-muted py-3">
-                        No hay asignaturas registradas.
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var a in Model)
+                {
+                    <tr style="border-bottom: 1px solid #f2f2f2;">
+                        <td class="ps-4 fw-semibold text-dark" style="font-size: 0.95rem;">
+                            <i class="bi bi-book text-primary me-2"></i>@a.Nombre
+                        </td>
+                        <td class="text-muted" style="font-size: 0.9rem;">
+                            @(string.IsNullOrEmpty(a.Grado) ? "Todos los grados" : a.Grado)
+                        </td>
+                        <td>
+                            <span class="badge @(a.Activa ? "bg-success" : "bg-danger")">
+                                @(a.Activa ? "Activa" : "Inactiva")
+                            </span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <form asp-action="ToggleActiva" asp-route-id="@a.Id" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit"
+                                        class="btn btn-sm shadow-sm @(a.Activa ? "btn-outline-danger" : "btn-outline-success")"
+                                        style="border-radius: 8px; min-width: 110px;">
+                                    <i class="bi @(a.Activa ? "bi-toggle-on" : "bi-toggle-off") me-1"></i>
+                                    @(a.Activa ? "Desactivar" : "Activar")
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">
+                            <i class="bi bi-journal-x fs-2 d-block mb-2"></i>
+                            <span>No hay asignaturas registradas.</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
